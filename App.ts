@@ -2,9 +2,7 @@ import express from "express";
 import * as bodyParser from "body-parser";
 import { TripModel } from "./model/TripModel";
 import { AttendeeModel } from "./model/AttendeeModel";
-
 import { ReportModel } from "./model/ReportModel";
-import * as crypto from "crypto";
 import { StudentModel } from "./model/StudentModel";
 import { CategoryModel } from "./model/CategoryModel";
 
