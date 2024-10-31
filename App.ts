@@ -4,6 +4,7 @@ import { TripModel } from "./model/TripModel";
 import { ReportModel } from "./model/ReportModel";
 import * as crypto from "crypto";
 import { StudentModel } from "./model/StudentModel";
+import { CategoryModel } from "./model/CategoryModel";
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -12,6 +13,7 @@ class App {
   public Trip: TripModel;
   public Student: StudentModel;
   public Report: ReportModel;
+  public Category: CategoryModel;
 
   // Run configuration methods on the Express instance.
   constructor(mongoDBConnection: string) {
@@ -21,6 +23,7 @@ class App {
     this.Trip = new TripModel(mongoDBConnection);
     this.Student = new StudentModel(mongoDBConnection);
     this.Report = new ReportModel(mongoDBConnection);
+    this.Category = new CategoryModel(mongoDBConnection);
   }
 
   // Configure Express middleware.
@@ -89,7 +92,44 @@ class App {
       console.log(`Delete trip ${tripId}`);
       await this.Trip.deleteTrip(res, tripId);
     });
-
+    // Category routes
+    router.post("/app/category", async (req, res) => {
+      const jsonObj = req.body;
+      console.log(`Create new category with: ${JSON.stringify(req.body)}`);
+      try {
+          await this.Category.createCategory(res, jsonObj);
+      } catch (error) {
+          console.error("Error creating category:", error);
+          res.status(500).json({ error: "Failed to create category" });
+      }
+    });
+    //Get all the categories
+    router.get("/app/category/:categoryId", async (req, res) => {
+        const categoryId = req.params.categoryId;
+        console.log(`Retrieve category ${categoryId}`);
+        try {
+            await this.Category.retrieveCategory(res, categoryId);
+        } catch (error) {
+            console.error("Error retrieving category:", error);
+            res.status(500).json({ error: "Failed to retrieve category" });
+        }
+    });
+    //Get all the categories
+    router.get("/app/category", async (req, res) => {
+      console.log(`Retrieve all categories`);
+      try {
+          await this.Category.retrieveAllCategories(res);
+      } catch (error) {
+          console.error("Error retrieving categories:", error);
+          res.status(500).json({ error: "Failed to retrieve all categories" });
+      }
+    });
+    //Delete Category
+    router.delete("/app/category/:categoryId", async (req, res) => {
+      var categoryId = req.params.categoryId;
+      console.log(`Delete category ${categoryId}`);
+      await this.Category.deleteCategory(res, categoryId);
+    });
     // Create a new student
     router.post("/app/student/", async (req, res) => {
       const id = crypto.randomBytes(16).toString("hex");
