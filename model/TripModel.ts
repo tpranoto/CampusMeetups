@@ -54,11 +54,97 @@ class TripModel {
   }
 
   public async retrieveTrip(response: any, tripId: string) {
-    var query = this.model.findOne({ tripId: tripId });
-    query.select("-_id -__v"); // filter out _id & __v fields
+    var query = this.model.aggregate([
+      {
+        $match: { tripId: tripId },
+      },
+      {
+        $lookup: {
+          from: "Attendee",
+          localField: "tripId",
+          foreignField: "tripId",
+          as: "attendee",
+        },
+      },
+      {
+        $unwind: {
+          path: "$attendee",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "Student",
+          localField: "organizerId",
+          foreignField: "studentId",
+          as: "organizer",
+        },
+      },
+      {
+        $unwind: "$organizer",
+      },
+      {
+        $lookup: {
+          from: "Category",
+          localField: "categoryId",
+          foreignField: "categoryId",
+          as: "category",
+        },
+      },
+      {
+        $unwind: "$category",
+      },
+      {
+        $group: {
+          _id: {
+            tripId: "$tripId",
+            name: "$name",
+            description: "$description",
+            status: "$status",
+            image: "$image",
+            location: "$location",
+            date: "$date",
+            organizer: {
+              organizerId: "$organizer.organizerId",
+              fname: "$organizer.fname",
+              lname: "$organizer.lname",
+            },
+            category: {
+              categoryId: "$category.categoryId",
+              name: "$category.name",
+            },
+          },
+          attendees: {
+            $push: {
+              studentId: "$attendee.studentId",
+              fname: "$attendee.fname",
+              lname: "$attendee.lname",
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          tripId: "$_id.tripId",
+          name: "$_id.name",
+          description: "$_id.description",
+          status: "$_id.status",
+          image: "$_id.image",
+          location: "$_id.location",
+          date: "$_id.date",
+          organizer: "$_id.organizer",
+          category: "$_id.category",
+          attendees: 1,
+        },
+      },
+    ]);
     try {
       const result = await query.exec();
-      response.json(result);
+      if (result.length == 0) {
+        response.json({});
+      }
+      response.json(result[0]);
     } catch (e) {
       console.error(e);
       var msg = `failed to retrieve trip ${tripId}`;
@@ -66,11 +152,63 @@ class TripModel {
     }
   }
 
-  public async retrieveAllTrips(response: any, perPage: number, page: number) {
-    var query = this.model.find({});
+  public async retrieveAllTrips(
+    response: any,
+    catId: string,
+    perPage: number,
+    page: number
+  ): Promise<any> {
+    var filter = {};
+    if (catId != null) {
+      filter = { categoryId: catId };
+    }
+    var query = this.model.aggregate([
+      {
+        $match: filter,
+      },
+      {
+        $lookup: {
+          from: "Student",
+          localField: "organizerId",
+          foreignField: "studentId",
+          as: "organizer",
+        },
+      },
+      {
+        $unwind: "$organizer",
+      },
+      {
+        $lookup: {
+          from: "Category",
+          localField: "categoryId",
+          foreignField: "categoryId",
+          as: "category",
+        },
+      },
+      {
+        $unwind: "$category",
+      },
+      {
+        $project: {
+          _id: 0,
+          tripId: 1,
+          name: 1,
+          description: 1,
+          status: 1,
+          image: 1,
+          location: 1,
+          date: 1,
+          "organizer.organizerId": 1,
+          "organizer.fname": 1,
+          "organizer.lname": 1,
+          "category.categoryId": 1,
+          "category.name": 1,
+        },
+      },
+    ]);
+
     query.limit(perPage);
     query.skip(page * perPage);
-    query.select("-_id -__v"); // filter out _id & __v fields
     try {
       const itemArray = await query.exec();
       response.json({ data: itemArray, perPage: perPage, page: page });
