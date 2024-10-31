@@ -104,6 +104,17 @@ class App {
         console.log("object creation failed");
       }
     });
+      // Get All Students
+      router.get('/app/students/', async (req, res) => {
+          console.log('Query all students');
+          try {
+              const allStudents = await this.Student.retrieveAllStudents();
+              res.json(allStudents);
+          } catch (e) {
+              console.error(e);
+              res.send("Error fetching all students.");
+          }
+      });
     // Get a student with studentId
     router.get("/app/student/:studentId", async (req, res) => {
       const studentId = req.params.studentId;
@@ -118,21 +129,21 @@ class App {
         res.send("Error fetching student details.");
       }
     });
-    // Update a student details with studentId
-    router.patch("/app/student/:studentId", async (req, res) => {
-      const studentId = req.params.studentId;
-      const updateData = req.body;
-      try {
-        const responseMessage = await this.Student.updateStudentDetails(
-          studentId,
-          updateData
-        );
-        res.json(responseMessage);
-      } catch (e) {
-        console.error(e);
-        res.send("Error Updating.");
-      }
-    });
+    
+      // Update a student details with studentId
+      router.put("/app/student/:id", async (req, res) => {
+          const studentId = req.params.id;
+          const updateData = req.body;
+          try {
+              const responseMessage = await this.Student.updateStudentDetails(studentId, updateData);
+              res.json(responseMessage);
+          } catch (e) {
+              console.error(e);
+              res.send("Error Updating.");
+          }
+      });
+
+
     // Delete a student with studentId
     router.delete("/app/student/:studentId", async (req, res) => {
       const studentId = req.params.studentId;
