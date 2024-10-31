@@ -1,6 +1,7 @@
 
 import * as Mongoose from "mongoose";
 import { IAttendeeModel } from "../interface/IAttendeeModel";
+import * as crypto from "crypto";
 
 class AttendeeModel {
     public schema: any;
@@ -33,6 +34,22 @@ class AttendeeModel {
             this.model = Mongoose.model<IAttendeeModel>("Attendee", this.schema);
         } catch (e) {
             console.error(e);
+        }
+    }
+
+    // Create a new attendee similar to createTrip
+    public async createAttendee(attendeeObj: any) {
+        const id = crypto.randomBytes(16).toString("hex"); // Generate a unique attendee ID
+        attendeeObj.attendeeId = id; // Set the attendee ID
+
+        try {
+            await this.model.create([attendeeObj]); // Save the attendee to the database
+            return attendeeObj; // Return the created attendee
+        } catch (e) {
+            console.error(e);
+            const msg = `Failed to create attendee ${JSON.stringify(attendeeObj)}`; // Prepare error message
+            throw new Error("Error creating Attendees")
+           
         }
     }
     // Retrieve the Attendees of a trip  using tripId

@@ -3,6 +3,7 @@ import * as bodyParser from "body-parser";
 import { TripModel } from "./model/TripModel";
 import { AttendeeModel } from "./model/AttendeeModel";
 
+
 // Creates and configures an ExpressJS web server.
 class App {
   // Ref to Express instance
@@ -96,16 +97,53 @@ class App {
           res.json({error: `Error fetching trips for an attendee ${studentId}`});
       }});
 
+    // Retrieve Students Attending a Specific Trip
+    router.get("/app/attendee/trip/:tripId", async (req, res) => {
+      var tripId = req.params.tripId;
+      console.log(`Retrieve Students attending the trip ${tripId}`);
+      try {
+          const attendees = await this.Attendee.retrieveAllAttendees(tripId);
+          res.json(attendees);
+      } catch (e) {
+          console.error(e);
+          res.json({ error: `Error fetching attendees for trip ${tripId}` });
+      }
+    });
 
-    // router.get("/app/trip", async (req, res) => {
-    //   try {
-    //     var query: any = req.query;
-    //     var perPage =
-    //       query.perPage !== undefined ? parseInt(query.perPage) : 20;
-    //     if (isNaN(perPage) || perPage <= 0) {
-    //       res.status(400).json({ error: "perPage must be a positive integer" });
-    //       return;
-    //     }
+          // Create a New Attendee
+      router.post("/app/attendee", async (req, res) => {
+        const { studentId, tripId, fname, lname, email, phoneNumber } = req.body;
+        console.log(`Creating a new attendee for trip ${tripId}`);
+        try {
+            // Assuming there's a method to create an attendee in your AttendeeModel
+            const newAttendee = await this.Attendee.createAttendee({
+                studentId,
+                tripId,
+                fname,
+                lname,
+                email,
+                phoneNumber,
+            });
+            res.status(201).json(newAttendee);
+        } catch (e) {
+            console.error(e);
+            res.json({ error: `Error creating attendee for student ${studentId}` });
+        }
+      });
+
+      // Delete an Attendee
+      router.delete("/app/attendee/:studentId/trip/:tripId", async (req, res) => {
+        const studentId = req.params.studentId;  // Get studentId from route parameters
+        const tripId = req.params.tripId; 
+        console.log(`Deleting attendee ${studentId} from trip ${tripId}`);
+        try {
+            const result = await this.Attendee.deleteAttendee(studentId, tripId);
+            res.json(result);
+        } catch (e) {
+            console.error(e);
+            res.json({ error: `Error deleting attendee ${studentId} from trip ${tripId}` });
+        }
+      });
 
 
     this.expressApp.use("/", router);
