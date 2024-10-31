@@ -1,5 +1,6 @@
 import * as Mongoose from "mongoose";
 import { IStudentModel } from "../interface/IStudentModel";
+import * as crypto from "crypto";
 
 class StudentModel {
     public schema: any;
@@ -36,11 +37,23 @@ class StudentModel {
         }
     }
 
+    public async createStudent(studentObj: any): Promise<any>{
+        const id = crypto.randomBytes(16).toString("hex");
+        studentObj.studentId = id;
+        try {
+            await this.model.create([studentObj]);
+            return studentObj;
+        } catch (e) {
+            console.error(e);
+            throw new Error("Error creating new student.");
+        }
+    }
+
     public async retrieveStudentDetails(filter: Object): Promise<any> {
         try {
             const studentDetails = await this.model.findOne(filter).select("-_id -__v").exec();
             if (!studentDetails) {
-                throw new Error("Student not found.");
+                return {};
             }
             return studentDetails;
         } catch (e) {
@@ -59,15 +72,16 @@ class StudentModel {
         }
     }
 
-    public async updateStudentDetails(studentId: string, updateData: Object): Promise<any> {
+    public async updateStudentDetails(studentId: string, updateData: any): Promise<any> {
         try {
             const result = await this.model.updateOne({ studentId: studentId }, { $set: updateData });
             if (result.modifiedCount > 0) {
-                return { message: "Student updated successfully." };
+                updateData.studentId = studentId;
+                return updateData;
             } else if (result.matchedCount === 0) {
                 throw new Error("Student not found.");
             } else {
-                return { message: "No changes made to the student data." };
+                throw new Error("No changes made to the student data.");
             }
         } catch (e) {
             console.error(e);
@@ -79,12 +93,8 @@ class StudentModel {
     // Delete Student by studentId
     public async deleteStudent(studentId: string): Promise<any> {
         try {
-            const result = await this.model.deleteOne({ studentId: studentId });
-            if (result.deletedCount > 0) {
-                return { message: "Student deleted successfully." };
-            } else {
-                throw new Error("Student not found.");
-            }
+            await this.model.deleteOne({ studentId: studentId });
+            return { message: "OK" };
         } catch (e) {
             console.error(e);
             throw new Error("Error deleting student.");

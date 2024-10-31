@@ -51,6 +51,9 @@ class CategoryModel {
         query.select("-_id -__v"); // filter out _id & __v fields
         try {
             const result = await query.exec();
+            if (!result){
+                response.json({})
+            }
             response.json(result);
         } catch (e) { 
             console.error(e);
