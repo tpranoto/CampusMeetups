@@ -96,7 +96,7 @@ class App {
       console.log(`Delete trip ${tripId}`);
       await this.Trip.deleteTrip(res, tripId);
     });
-    // Category routes
+    //Create category
     router.post("/app/category", async (req, res) => {
       const jsonObj = req.body;
       console.log(`Create new category with: ${JSON.stringify(req.body)}`);
@@ -107,7 +107,7 @@ class App {
         res.status(500).json({ error: "Failed to create category" });
       }
     });
-    //Get all the categories
+    //Get a category
     router.get("/app/category/:categoryId", async (req, res) => {
       const categoryId = req.params.categoryId;
       console.log(`Retrieve category ${categoryId}`);

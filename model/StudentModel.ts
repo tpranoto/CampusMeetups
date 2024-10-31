@@ -53,7 +53,7 @@ class StudentModel {
         try {
             const studentDetails = await this.model.findOne(filter).select("-_id -__v").exec();
             if (!studentDetails) {
-                throw new Error("Student not found.");
+                return {};
             }
             return studentDetails;
         } catch (e) {
