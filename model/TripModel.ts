@@ -58,8 +58,8 @@ class TripModel {
     query.select("-_id -__v"); // filter out _id & __v fields
     try {
       const result = await query.exec();
-      if (!result){
-        response.json({})
+      if (!result) {
+        response.json({});
       }
       response.json(result);
     } catch (e) {
@@ -69,8 +69,17 @@ class TripModel {
     }
   }
 
-  public async retrieveAllTrips(response: any, perPage: number, page: number) {
-    var query = this.model.find({});
+  public async retrieveAllTrips(
+    response: any,
+    catId: string,
+    perPage: number,
+    page: number
+  ): Promise<any> {
+    var filter = {};
+    if (catId != null) {
+      filter = { categoryId: catId };
+    }
+    var query = this.model.find(filter);
     query.limit(perPage);
     query.skip(page * perPage);
     query.select("-_id -__v"); // filter out _id & __v fields

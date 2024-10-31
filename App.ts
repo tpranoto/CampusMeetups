@@ -64,6 +64,7 @@ class App {
     router.get("/app/trip", async (req, res) => {
       try {
         var query: any = req.query;
+        var categoryId = query.categoryId;
         var perPage =
           query.perPage !== undefined ? parseInt(query.perPage) : 20;
         if (isNaN(perPage) || perPage <= 0) {
@@ -75,13 +76,12 @@ class App {
           res.status(400).json({ error: "page must be 0 or larger" });
           return;
         }
-        // category filter
       } catch (e) {
         res.status(400).json({ error: "bad query params" });
         return;
       }
       console.log("Query multiple trips");
-      await this.Trip.retrieveAllTrips(res, perPage, page);
+      await this.Trip.retrieveAllTrips(res, categoryId, perPage, page);
     });
     // Update a trip with tripId
     router.patch("/app/trip/:tripId", async (req, res) => {
