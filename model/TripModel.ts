@@ -141,10 +141,10 @@ class TripModel {
     ]);
     try {
       const result = await query.exec();
-      if (!result) {
+      if (result.length == 0) {
         response.json({});
       }
-      response.json(result);
+      response.json(result[0]);
     } catch (e) {
       console.error(e);
       var msg = `failed to retrieve trip ${tripId}`;
