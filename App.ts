@@ -151,7 +151,7 @@ class App {
         res.json(student);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error creating a students." });
+        res.json({ error: "Error creating a students." }).status(500);
       }
     });
     // Get All Students
@@ -162,7 +162,7 @@ class App {
         res.json(allStudents);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error fetching all students." });
+        res.json({ error: "Error fetching all students." }).status(500);
       }
     });
     // Get a student with studentId
@@ -176,7 +176,7 @@ class App {
         res.json(studentDetails);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error fetching student details." });
+        res.json({ error: "Error fetching student details." }).status(500);
       }
     });
     // Update a student details with studentId
@@ -191,7 +191,7 @@ class App {
         res.json(responseMessage);
       } catch (e) {
         console.error(e);
-        res.json({ error: `Error updating student.` });
+        res.json({ error: `Error updating student.` }).status(500);
       }
     });
     // Delete a student with studentId
@@ -202,7 +202,7 @@ class App {
         res.json(result);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error Deleting." });
+        res.json({ error: "Error Deleting." }).status(500);
       }
     });
 
@@ -217,7 +217,7 @@ class App {
         res.json(result);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error creating student." });
+        res.json({ error: "Error creating student." }).status(500);
       }
     });
     // Get all reports
@@ -228,7 +228,7 @@ class App {
         res.json(allReports);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error fetching all reports." });
+        res.json({ error: "Error fetching all reports." }).status(500);
       }
     });
     // Get single report by reportId
@@ -239,7 +239,7 @@ class App {
         res.json(reportDetails);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error fetching report." });
+        res.json({ error: "Error fetching report." }).status(500);
       }
     });
     // Update report with reportId
@@ -255,7 +255,7 @@ class App {
         res.json(responseMessage);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error updating report." });
+        res.json({ error: "Error updating report." }).status(500);
       }
     });
     // Delete report by reportId
@@ -266,7 +266,7 @@ class App {
         res.json(result);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error deleting report." });
+        res.json({ error: "Error deleting report." }).status(500);
       }
     });
 
@@ -281,9 +281,11 @@ class App {
         res.json(Trips);
       } catch (e) {
         console.error(e);
-        res.json({
-          error: `Error fetching trips for an attendee ${studentId}`,
-        });
+        res
+          .json({
+            error: `Error fetching trips for an attendee ${studentId}`,
+          })
+          .status(500);
       }
     });
     // Retrieve Students Attending a Specific Trip
@@ -295,7 +297,9 @@ class App {
         res.json(attendees);
       } catch (e) {
         console.error(e);
-        res.json({ error: `Error fetching attendees for trip ${tripId}` });
+        res
+          .json({ error: `Error fetching attendees for trip ${tripId}` })
+          .status(500);
       }
     });
     // Create a New Attendee
@@ -308,9 +312,11 @@ class App {
         res.json(newAttendee);
       } catch (e) {
         console.error(e);
-        res.json({
-          error: `Error creating attendee for ${JSON.stringify(attendeeObj)}`,
-        });
+        res
+          .json({
+            error: `Error creating attendee for ${JSON.stringify(attendeeObj)}`,
+          })
+          .status(500);
       }
     });
     // Delete an Attendee
@@ -323,9 +329,11 @@ class App {
         res.json(result);
       } catch (e) {
         console.error(e);
-        res.json({
-          error: `Error deleting attendee ${studentId} from trip ${tripId}`,
-        });
+        res
+          .json({
+            error: `Error deleting attendee ${studentId} from trip ${tripId}`,
+          })
+          .status(500);
       }
     });
 
