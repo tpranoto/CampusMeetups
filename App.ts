@@ -234,7 +234,10 @@ class App {
       const reportId = req.params.reportId;
       try {
         const reportDetails = await this.Report.getReportDetails(reportId);
-        res.json(reportDetails);
+        if (reportDetails.length == 0){
+          res.json({});
+        }
+        res.json(reportDetails[0]);
       } catch (e) {
         console.error(e);
         res.json({ error: "Error fetching report." }).status(500);

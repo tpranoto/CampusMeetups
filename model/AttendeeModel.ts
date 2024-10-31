@@ -60,7 +60,36 @@ class AttendeeModel {
     // Retrieve the trip(s) for a student using studentId
     public async retrieveAttendedTrips(studentId: string): Promise<any> {
         try {
-            const query = this.model.find({ studentId: studentId }).select("-_id -__v");
+            const query = this.model.aggregate([
+                {
+                    $match: { studentId: studentId },
+                },
+                {
+                    $lookup: {
+                        from: "Trip",
+                        localField: "tripId",
+                        foreignField: "tripId",
+                        as: "trip",
+                    },
+                },
+                {
+                    $unwind: "$trip",
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        studentId: 1,
+                        tripId: 1,
+                        fname: 1,
+                        lname: 1,
+                        "trip.name": 1,
+                        "trip.image": 1,
+                        "trip.status": 1,
+                        "trip.location": 1,
+                        "trip.date": 1,
+                    },
+                },
+            ])
             const trips = await query.exec();
             return trips;
         } catch (e) {

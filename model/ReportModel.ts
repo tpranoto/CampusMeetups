@@ -50,7 +50,49 @@ class ReportModel {
 
     public async retrieveAllReports(): Promise<any[]> {
         try {
-            const reports = await this.model.find().select("-_id -__v").exec();
+            const reports = this.model.aggregate([
+                {
+                    $lookup: {
+                        from: "Student",
+                        localField: "reporterId",
+                        foreignField: "studentId",
+                        as: "reporter",
+                    },
+                },
+                {
+                    $unwind: "$reporter",
+                },
+                {
+                    $lookup: {
+                        from: "Student",
+                        localField: "reportedId",
+                        foreignField: "studentId",
+                        as: "reported",
+                    },
+                },
+                {
+                    $unwind: "$reported",
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        reportId: 1,
+                        reason: 1,
+                        detail: 1,
+                        status: 1,
+                        reporter: {
+                            reporterId: "$reporter.studentId",
+                            fname: "$reporter.fname",
+                            lname: "$reporter.lname"
+                        },
+                        reported: {
+                            reportedId: "$reported.studentId",
+                            fname: "$reported.fname",
+                            lname: "$reported.lname"
+                        },
+                    },
+                },
+            ]).exec();
             return reports;
         } catch (e) {
             console.error(e);
@@ -84,10 +126,52 @@ class ReportModel {
     }
     public async getReportDetails(reportId: string): Promise<any> {
         try {
-            const reportDetails = await this.model.findOne({ reportId: reportId }).select("-_id -__v").exec();
-            if (!reportDetails) {
-                return {};
-            }
+            const reportDetails = await this.model.aggregate([
+                {
+                    $match: { reportId: reportId },
+                },
+                {
+                    $lookup: {
+                        from: "Student",
+                        localField: "reporterId",
+                        foreignField: "studentId",
+                        as: "reporter",
+                    },
+                },
+                {
+                    $unwind: "$reporter",
+                },
+                {
+                    $lookup: {
+                        from: "Student",
+                        localField: "reportedId",
+                        foreignField: "studentId",
+                        as: "reported",
+                    },
+                },
+                {
+                    $unwind: "$reported",
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        reportId: 1,
+                        reason: 1,
+                        detail: 1,
+                        status: 1,
+                        reporter: {
+                            reporterId: "$reporter.studentId",
+                            fname: "$reporter.fname",
+                            lname: "$reporter.lname"
+                        },
+                        reported: {
+                            reportedId: "$reported.studentId",
+                            fname: "$reported.fname",
+                            lname: "$reported.lname"
+                        },
+                    },
+                },
+            ]).exec();
             return reportDetails;
         } catch (e) {
             console.error(e);
