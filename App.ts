@@ -94,6 +94,7 @@ class App {
     router.delete("/app/trip/:tripId", async (req, res) => {
       var tripId = req.params.tripId;
       console.log(`Delete trip ${tripId}`);
+      await this.Attendee.deleteAttendeesFromTrips(tripId);
       await this.Trip.deleteTrip(res, tripId);
     });
 
@@ -196,6 +197,7 @@ class App {
     router.delete("/app/student/:studentId", async (req, res) => {
       const studentId = req.params.studentId;
       try {
+        const tripsDeleted = await this.Attendee.deleteAttendedTrips(studentId)
         const result = await this.Student.deleteStudent(studentId);
         res.json(result);
       } catch (e) {
