@@ -361,7 +361,6 @@ if (!db.getCollectionNames().includes('Student')) {
 const StudentsCollection = db.getCollection("Student");
 StudentsCollection.deleteMany({});
 StudentsCollection.insertMany([
-
     {
         "studentId": "S12346",
         "fname": "Liam",

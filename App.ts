@@ -135,34 +135,32 @@ class App {
       await this.Category.deleteCategory(res, categoryId);
     });
     // Create a new student
-    router.post("/app/student/", async (req, res) => {
-      const id = crypto.randomBytes(16).toString("hex");
-      console.log(req.body);
+    router.post("/app/student", async (req, res) => {
       const jsonObj = req.body;
-      jsonObj.studentId = id;
+      console.log(`Create student: ${JSON.stringify(jsonObj)}`);
       try {
-        await this.Student.model.create([jsonObj]);
-        res.send('{"id":"' + id + '"}');
+        const student = await this.Student.createStudent(jsonObj);
+        res.json(student);
       } catch (e) {
         console.error(e);
-        console.log("object creation failed");
+        res.json({error:"Error creating a students."});
       }
     });
     // Get All Students
-    router.get("/app/students/", async (req, res) => {
+    router.get("/app/student", async (req, res) => {
       console.log("Query all students");
       try {
         const allStudents = await this.Student.retrieveAllStudents();
         res.json(allStudents);
       } catch (e) {
         console.error(e);
-        res.send("Error fetching all students.");
+        res.json({error:"Error fetching all students."});
       }
     });
     // Get a student with studentId
     router.get("/app/student/:studentId", async (req, res) => {
       const studentId = req.params.studentId;
-      console.log("Query single student with id: " + studentId);
+      console.log(`Query single student with id: ${studentId}`);
       try {
         const studentDetails = await this.Student.retrieveStudentDetails({
           studentId: studentId,
@@ -170,7 +168,7 @@ class App {
         res.json(studentDetails);
       } catch (e) {
         console.error(e);
-        res.send("Error fetching student details.");
+        res.json({error:"Error fetching student details."});
       }
     });
 
@@ -186,7 +184,7 @@ class App {
         res.json(responseMessage);
       } catch (e) {
         console.error(e);
-        res.send("Error Updating.");
+        res.json({error:`Error updating student.`});
       }
     });
 
@@ -195,10 +193,10 @@ class App {
       const studentId = req.params.studentId;
       try {
         const result = await this.Student.deleteStudent(studentId);
-        res.send(result.message);
+        res.json(result);
       } catch (e) {
         console.error(e);
-        res.send("Error Deleting.");
+        res.json({error:"Error Deleting."});
       }
     });
 
