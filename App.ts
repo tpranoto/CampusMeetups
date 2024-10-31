@@ -23,8 +23,6 @@ class App {
     this.routes();
     this.Trip = new TripModel(mongoDBConnection);
     this.Attendee = new AttendeeModel(mongoDBConnection);
-    this.Trip = new TripModel(mongoDBConnection);
-    this.Student = new StudentModel(mongoDBConnection); 
     this.Student = new StudentModel(mongoDBConnection);
     this.Report = new ReportModel(mongoDBConnection);
     this.Category = new CategoryModel(mongoDBConnection);
