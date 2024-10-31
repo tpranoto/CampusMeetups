@@ -131,3 +131,4 @@ dist
 
 # compiled .ts into .js
 *.js
+!populate.js
