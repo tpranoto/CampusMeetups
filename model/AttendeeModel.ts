@@ -108,6 +108,26 @@ class AttendeeModel {
             throw new Error("Error deleting attendee.");
         }
     }
+
+    public async deleteAttendedTrips(studentId: string): Promise<any> {
+        try {
+            await this.model.deleteMany({ studentId: studentId});
+            return { message: "OK" };
+        }catch (e) {
+            console.error(e)
+            throw new Error(`Error deleting trips attended by ${studentId}`)
+        }
+    }
+
+    public async deleteAttendeesFromTrips(tripId: string): Promise<any> {
+        try {
+            await this.model.deleteMany({ tripId: tripId});
+            return { message: "OK" };
+        }catch (e) {
+            console.error(e)
+            throw new Error(`Error deleting trips attended by ${e}`)
+        }
+    }
 }
 
 export { AttendeeModel };
