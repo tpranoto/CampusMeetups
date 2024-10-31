@@ -38,18 +38,52 @@ class App {
   private routes(): void {
     let router = express.Router();
 
-    router.post("/app/trip/", async (req, res) => {
-      const id = crypto.randomBytes(16).toString("hex");
-      console.log(req.body);
+    router.post("/app/trip", async (req, res) => {
       var jsonObj = req.body;
-      jsonObj.tripId = id;
+      console.log(`Create new trip with: ${JSON.stringify(req.body)}`);
+      await this.Trip.createTrip(res, jsonObj);
+    });
+
+    router.get("/app/trip/:tripId", async (req, res) => {
+      var tripId = req.params.tripId;
+      console.log(`Retrieve trip ${tripId}`);
+      await this.Trip.retrieveTrip(res, tripId);
+    });
+
+    router.get("/app/trip", async (req, res) => {
       try {
-        await this.Trip.model.create([jsonObj]);
-        res.send('{"id":"' + id + '"}');
+        var query: any = req.query;
+        var perPage =
+          query.perPage !== undefined ? parseInt(query.perPage) : 20;
+        if (isNaN(perPage) || perPage <= 0) {
+          res.status(400).json({ error: "perPage must be a positive integer" });
+          return;
+        }
+        var page = query.page !== undefined ? parseInt(query.page) : 0;
+        if (isNaN(page) || page < 0) {
+          res.status(400).json({ error: "page must be 0 or larger" });
+          return;
+        }
+        // category filter
       } catch (e) {
-        console.error(e);
-        console.log("object creation failed");
+        res.status(400).json({ error: "bad query params" });
+        return;
       }
+      console.log("Query multiple trips");
+      await this.Trip.retrieveAllTrips(res, perPage, page);
+    });
+
+    router.patch("/app/trip/:tripId", async (req, res) => {
+      var tripId = req.params.tripId;
+      var jsonObj = req.body;
+      console.log(`Update trip ${tripId} with: ${JSON.stringify(jsonObj)}`);
+      await this.Trip.updateTrip(res, tripId, jsonObj);
+    });
+
+    router.delete("/app/trip/:tripId", async (req, res) => {
+      var tripId = req.params.tripId;
+      console.log(`Delete trip ${tripId}`);
+      await this.Trip.deleteTrip(res, tripId);
     });
       // Student - Post
       router.post("/app/student/", async (req, res) => {
