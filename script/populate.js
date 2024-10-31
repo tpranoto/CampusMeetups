@@ -307,3 +307,150 @@ TripsCollection.insertMany([
         "categoryId": "Relaxation"
     }
 ])
+if (!db.getCollectionNames().includes('Report')) {
+    db.createCollection('Report');
+}
+const ReportsCollection = db.getCollection("Report");
+ReportsCollection.deleteMany({});
+ReportsCollection.insertMany([
+
+    {
+        "reportId": "R002",
+        "reason": "Spam messages",
+        "detail": "This user has been sending promotional links repeatedly.",
+        "status": "On-Going",
+        "reporterId": "S11122",
+        "reportedId": "S19234"
+    },
+    {
+        "reportId": "R003",
+        "reason": "Fraud user",
+        "detail": "User has been impersonating a legitimate business.",
+        "status": "Resolved",
+        "reporterId": "S13579",
+        "reportedId": "S19567"
+    },
+    {
+        "reportId": "R004",
+        "reason": "Harassment",
+        "detail": "Reported for repeated abusive language in comments.",
+        "status": "On-Going",
+        "reporterId": "S11223",
+        "reportedId": "S19456"
+    },
+    {
+        "reportId": "R005",
+        "reason": "Account takeover attempt",
+        "detail": "Suspicious activity suggesting account was hacked.",
+        "status": "Resolved",
+        "reporterId": "S14567",
+        "reportedId": "S19321"
+    },
+    {
+        "reportId": "R006",
+        "reason": "Scam attempts",
+        "detail": "User sent phishing links to multiple users.",
+        "status": "On-Going",
+        "reporterId": "S12678",
+        "reportedId": "S19289"
+    }
+])
+if (!db.getCollectionNames().includes('Student')) {
+    db.createCollection('Student');
+}
+const StudentsCollection = db.getCollection("Student");
+StudentsCollection.deleteMany({});
+StudentsCollection.insertMany([
+
+    {
+        "studentId": "S12346",
+        "fname": "Liam",
+        "lname": "Smith",
+        "email": "liamsmith@seattleu.edu",
+        "phoneNumber": "234-567-8901",
+        "verified": "true",
+        "status": "active"
+    },
+    {
+        "studentId": "S12347",
+        "fname": "Olivia",
+        "lname": "Johnson",
+        "email": "oliviajohnson@seattleu.edu",
+        "phoneNumber": "345-678-9012",
+        "verified": "true",
+        "status": "active"
+    },
+    {
+        "studentId": "S12348",
+        "fname": "Noah",
+        "lname": "Brown",
+        "email": "noahbrown@seattleu.edu",
+        "phoneNumber": "456-789-0123",
+        "verified": "false",
+        "status": "inactive"
+    },
+    {
+        "studentId": "S12349",
+        "fname": "Emma",
+        "lname": "Davis",
+        "email": "emmadavis@seattleu.edu",
+        "phoneNumber": "567-890-1234",
+        "verified": "true",
+        "status": "active"
+    },
+    {
+        "studentId": "S12350",
+        "fname": "Ava",
+        "lname": "Garcia",
+        "email": "avagarcia@seattleu.edu",
+        "phoneNumber": "678-901-2345",
+        "verified": "true",
+        "status": "active"
+    },
+    {
+        "studentId": "S12351",
+        "fname": "James",
+        "lname": "Martinez",
+        "email": "jamesmartinez@seattleu.edu",
+        "phoneNumber": "789-012-3456",
+        "verified": "false",
+        "status": "inactive"
+    },
+    {
+        "studentId": "S12352",
+        "fname": "Sophia",
+        "lname": "Hernandez",
+        "email": "sophiahernandez@seattleu.edu",
+        "phoneNumber": "890-123-4567",
+        "verified": "true",
+        "status": "active"
+    },
+    {
+        "studentId": "S12353",
+        "fname": "Jackson",
+        "lname": "Lopez",
+        "email": "jacksonlopez@seattleu.edu",
+        "phoneNumber": "901-234-5678",
+        "verified": "true",
+        "status": "active"
+    },
+    {
+        "studentId": "S12354",
+        "fname": "Isabella",
+        "lname": "Wilson",
+        "email": "isabellawilson@seattleu.edu",
+        "phoneNumber": "012-345-6789",
+        "verified": "false",
+        "status": "inactive"
+    },
+    {
+        "studentId": "S12355",
+        "fname": "Lucas",
+        "lname": "Anderson",
+        "email": "lucasanderson@seattleu.edu",
+        "phoneNumber": "123-456-7891",
+        "verified": "true",
+        "status": "active"
+    }
+])
+
