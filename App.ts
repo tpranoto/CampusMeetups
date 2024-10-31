@@ -48,6 +48,8 @@ class App {
   private routes(): void {
     let router = express.Router();
 
+    ///////TRIP///////
+
     // Create new trip
     router.post("/app/trip", async (req, res) => {
       var jsonObj = req.body;
@@ -96,6 +98,9 @@ class App {
       console.log(`Delete trip ${tripId}`);
       await this.Trip.deleteTrip(res, tripId);
     });
+
+    ///////CATEGORY///////
+
     //Create category
     router.post("/app/category", async (req, res) => {
       const jsonObj = req.body;
@@ -134,6 +139,9 @@ class App {
       console.log(`Delete category ${categoryId}`);
       await this.Category.deleteCategory(res, categoryId);
     });
+
+    ///////STUDENT///////
+
     // Create a new student
     router.post("/app/student", async (req, res) => {
       const jsonObj = req.body;
@@ -143,7 +151,7 @@ class App {
         res.json(student);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error creating a students."});
+        res.json({ error: "Error creating a students." });
       }
     });
     // Get All Students
@@ -154,7 +162,7 @@ class App {
         res.json(allStudents);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error fetching all students."});
+        res.json({ error: "Error fetching all students." });
       }
     });
     // Get a student with studentId
@@ -168,10 +176,9 @@ class App {
         res.json(studentDetails);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error fetching student details."});
+        res.json({ error: "Error fetching student details." });
       }
     });
-
     // Update a student details with studentId
     router.put("/app/student/:id", async (req, res) => {
       const studentId = req.params.id;
@@ -184,10 +191,9 @@ class App {
         res.json(responseMessage);
       } catch (e) {
         console.error(e);
-        res.json({error:`Error updating student.`});
+        res.json({ error: `Error updating student.` });
       }
     });
-
     // Delete a student with studentId
     router.delete("/app/student/:studentId", async (req, res) => {
       const studentId = req.params.studentId;
@@ -196,9 +202,11 @@ class App {
         res.json(result);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error Deleting."});
+        res.json({ error: "Error Deleting." });
       }
     });
+
+    ///////REPORT///////
 
     // Create new report
     router.post("/app/report", async (req, res) => {
@@ -209,7 +217,7 @@ class App {
         res.json(result);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error creating student."});
+        res.json({ error: "Error creating student." });
       }
     });
     // Get all reports
@@ -220,7 +228,7 @@ class App {
         res.json(allReports);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error fetching all reports."});
+        res.json({ error: "Error fetching all reports." });
       }
     });
     // Get single report by reportId
@@ -231,7 +239,7 @@ class App {
         res.json(reportDetails);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error fetching report."});
+        res.json({ error: "Error fetching report." });
       }
     });
     // Update report with reportId
@@ -247,7 +255,7 @@ class App {
         res.json(responseMessage);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error updating report."});
+        res.json({ error: "Error updating report." });
       }
     });
     // Delete report by reportId
@@ -258,9 +266,12 @@ class App {
         res.json(result);
       } catch (e) {
         console.error(e);
-        res.json({error:"Error deleting report."});
+        res.json({ error: "Error deleting report." });
       }
     });
+
+    ///////ATTENDEE///////
+
     // Get an attendee
     router.get("/app/attendee/:studentId", async (req, res) => {
       var studentId = req.params.studentId;
@@ -275,7 +286,6 @@ class App {
         });
       }
     });
-
     // Retrieve Students Attending a Specific Trip
     router.get("/app/attendee/trip/:tripId", async (req, res) => {
       var tripId = req.params.tripId;
@@ -288,7 +298,6 @@ class App {
         res.json({ error: `Error fetching attendees for trip ${tripId}` });
       }
     });
-
     // Create a New Attendee
     router.post("/app/attendee", async (req, res) => {
       const attendeeObj = req.body;
@@ -299,10 +308,11 @@ class App {
         res.json(newAttendee);
       } catch (e) {
         console.error(e);
-        res.json({ error: `Error creating attendee for ${JSON.stringify(attendeeObj)}` });
+        res.json({
+          error: `Error creating attendee for ${JSON.stringify(attendeeObj)}`,
+        });
       }
     });
-
     // Delete an Attendee
     router.delete("/app/attendee/:studentId/trip/:tripId", async (req, res) => {
       const studentId = req.params.studentId; // Get studentId from route parameters
