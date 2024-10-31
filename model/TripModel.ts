@@ -167,6 +167,12 @@ class TripModel {
         $match: filter,
       },
       {
+        $skip: page * perPage,
+      },
+      {
+        $limit: perPage,
+      },
+      {
         $lookup: {
           from: "Student",
           localField: "organizerId",
@@ -207,8 +213,6 @@ class TripModel {
       },
     ]);
 
-    query.limit(perPage);
-    query.skip(page * perPage);
     try {
       const itemArray = await query.exec();
       response.json({ data: itemArray, perPage: perPage, page: page });
