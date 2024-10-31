@@ -21,8 +21,6 @@ class AttendeeModel {
                 tripId: String,
                 fname: String,
                 lname: String,
-                email: String,
-                phoneNumber: String,
             },
             { collection: "Attendee" }
         );
@@ -39,17 +37,12 @@ class AttendeeModel {
 
     // Create a new attendee similar to createTrip
     public async createAttendee(attendeeObj: any) {
-        const id = crypto.randomBytes(16).toString("hex"); // Generate a unique attendee ID
-        attendeeObj.attendeeId = id; // Set the attendee ID
-
         try {
             await this.model.create([attendeeObj]); // Save the attendee to the database
             return attendeeObj; // Return the created attendee
         } catch (e) {
             console.error(e);
-            const msg = `Failed to create attendee ${JSON.stringify(attendeeObj)}`; // Prepare error message
-            throw new Error("Error creating Attendees")
-           
+            throw new Error("Error creating Attendees")  
         }
     }
     // Retrieve the Attendees of a trip  using tripId
@@ -65,7 +58,7 @@ class AttendeeModel {
     }
 
     // Retrieve the trip(s) for a student using studentId
-    public async retrieveTrips(studentId: string): Promise<any> {
+    public async retrieveAttendedTrips(studentId: string): Promise<any> {
         try {
             const query = this.model.find({ studentId: studentId }).select("-_id -__v");
             const trips = await query.exec();
@@ -79,19 +72,13 @@ class AttendeeModel {
     // Delete Attendee by studentId and tripId
     public async deleteAttendee(studentId: string, tripId: string): Promise<any> {
         try {
-            const result = await this.model.deleteOne({ studentId: studentId, tripId: tripId});
-            if (result.deletedCount > 0) {
-                return { message: "Attendee deleted successfully." };
-            } else {
-                throw new Error("Attendee not found.");
-            }
+            await this.model.deleteOne({ studentId: studentId, tripId: tripId});
+            return { message: "OK" };
         } catch (e) {
             console.error(e);
             throw new Error("Error deleting attendee.");
         }
     }
-
-
 }
 
 export { AttendeeModel };

@@ -264,12 +264,12 @@ class App {
         res.send("Error Deleting.");
       }
     });
-
+    // Get an attendee
     router.get("/app/attendee/:studentId", async (req, res) => {
       var studentId = req.params.studentId;
       console.log(`Retrieve Trips that a student is attending ${studentId}`);
       try {
-        const Trips = await this.Attendee.retrieveTrips(studentId);
+        const Trips = await this.Attendee.retrieveAttendedTrips(studentId);
         res.json(Trips);
       } catch (e) {
         console.error(e);
@@ -294,22 +294,15 @@ class App {
 
     // Create a New Attendee
     router.post("/app/attendee", async (req, res) => {
-      const { studentId, tripId, fname, lname, email, phoneNumber } = req.body;
-      console.log(`Creating a new attendee for trip ${tripId}`);
+      const attendeeObj = req.body;
+      console.log(`Creating a new attendee for ${JSON.stringify(attendeeObj)}`);
       try {
         // Assuming there's a method to create an attendee in your AttendeeModel
-        const newAttendee = await this.Attendee.createAttendee({
-          studentId,
-          tripId,
-          fname,
-          lname,
-          email,
-          phoneNumber,
-        });
-        res.status(201).json(newAttendee);
+        const newAttendee = await this.Attendee.createAttendee(attendeeObj);
+        res.json(newAttendee);
       } catch (e) {
         console.error(e);
-        res.json({ error: `Error creating attendee for student ${studentId}` });
+        res.json({ error: `Error creating attendee for ${JSON.stringify(attendeeObj)}` });
       }
     });
 
