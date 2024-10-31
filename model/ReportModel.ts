@@ -1,5 +1,6 @@
 import * as Mongoose from "mongoose";
 import { IReportModel } from "../interface/IReportModel";
+import * as crypto from "crypto";
 
 class ReportModel {
     public schema: any;
@@ -34,24 +35,38 @@ class ReportModel {
             console.error(e);
         }
     }
+
+    public async createReport( reportObj:any ) : Promise<any> {
+        const id = crypto.randomBytes(16).toString("hex");
+        reportObj.reportId = id;
+        try {
+          await this.model.create([reportObj]);
+          return reportObj;
+        } catch (e) {
+          console.error(e);
+          throw new Error("Error creating report.");
+        }
+    } 
+
     public async retrieveAllReports(): Promise<any[]> {
         try {
-            const reports = await this.model.find().exec();
+            const reports = await this.model.find().select("-_id -__v").exec();
             return reports;
         } catch (e) {
             console.error(e);
             throw new Error("Error retrieving reports.");
         }
     }
-    public async updateReportDetails(reportId: string, updateData: Object): Promise<any> {
+    public async updateReportDetails(reportId: string, updateData: any): Promise<any> {
         try {
             const result = await this.model.updateOne({ reportId: reportId }, { $set: updateData });
             if (result.modifiedCount > 0) {
-                return { message: "Report updated successfully." };
+                updateData.reportId = reportId;
+                return updateData;
             } else if (result.matchedCount === 0) {
                 throw new Error("Report not found.");
             } else {
-                return { message: "No changes made to the report data." };
+                throw new Error("No changes made to the report data.");
             }
         } catch (e) {
             console.error(e);
@@ -60,12 +75,8 @@ class ReportModel {
     }
     public async deleteReport(reportId: string): Promise<any> {
         try {
-            const result = await this.model.deleteOne({ reportId: reportId });
-            if (result.deletedCount > 0) {
-                return { message: "Report deleted successfully." };
-            } else {
-                throw new Error("Report not found.");
-            }
+            await this.model.deleteOne({ reportId: reportId });
+            return { message: "OK" };
         } catch (e) {
             console.error(e);
             throw new Error("Error deleting report.");
@@ -73,9 +84,9 @@ class ReportModel {
     }
     public async getReportDetails(reportId: string): Promise<any> {
         try {
-            const reportDetails = await this.model.findOne({ reportId: reportId }).exec();
+            const reportDetails = await this.model.findOne({ reportId: reportId }).select("-_id -__v").exec();
             if (!reportDetails) {
-                throw new Error("Report not found.");
+                return {};
             }
             return reportDetails;
         } catch (e) {

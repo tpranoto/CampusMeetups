@@ -201,29 +201,26 @@ class App {
     });
 
     // Create new report
-    router.post("/app/report/", async (req, res) => {
-      const id = crypto.randomBytes(16).toString("hex");
-      console.log(req.body);
+    router.post("/app/report", async (req, res) => {
       var jsonObj = req.body;
-      jsonObj.reportId = id;
+      console.log(jsonObj);
       try {
-        await this.Report.model.create([jsonObj]);
-        res.send('{"id":"' + id + '"}');
+        const result = await this.Report.createReport(jsonObj);
+        res.json(result);
       } catch (e) {
         console.error(e);
-        console.log("object creation failed");
+        res.json({error:"Error creating student."});
       }
     });
     // Get all reports
-    router.get("/app/report/", async (req, res) => {
+    router.get("/app/report", async (req, res) => {
       console.log("Query all reports");
-
       try {
         const allReports = await this.Report.retrieveAllReports();
         res.json(allReports);
       } catch (e) {
         console.error(e);
-        res.send("Error fetching all reports.");
+        res.json({error:"Error fetching all reports."});
       }
     });
     // Get single report by reportId
@@ -234,11 +231,11 @@ class App {
         res.json(reportDetails);
       } catch (e) {
         console.error(e);
-        res.send("Error fetching report.");
+        res.json({error:"Error fetching report."});
       }
     });
     // Update report with reportId
-    router.patch("/app/report/:reportId", async (req, res) => {
+    router.put("/app/report/:reportId", async (req, res) => {
       const reportId = req.params.reportId;
       const updateData = req.body;
 
@@ -250,7 +247,7 @@ class App {
         res.json(responseMessage);
       } catch (e) {
         console.error(e);
-        res.send("Error Updating.");
+        res.json({error:"Error updating report."});
       }
     });
     // Delete report by reportId
@@ -258,10 +255,10 @@ class App {
       const reportId = req.params.reportId;
       try {
         const result = await this.Report.deleteReport(reportId);
-        res.send(result.message);
+        res.json(result);
       } catch (e) {
         console.error(e);
-        res.send("Error Deleting.");
+        res.json({error:"Error deleting report."});
       }
     });
     // Get an attendee
