@@ -3,6 +3,11 @@ db = db.getSiblingDB('campusMeetups')
 if (!db.getCollectionNames().includes('Trip')) {
     db.createCollection('Trip');
 }
+
+if (!db.getCollectionNames().includes('Student')) {
+    db.createCollection('Student');
+}
+
 TripsCollection = db.getCollection("Trip")
 TripsCollection.deleteMany({})
 TripsCollection.insertMany([
@@ -307,3 +312,8 @@ TripsCollection.insertMany([
         "categoryId": "Relaxation"
     }
 ])
+
+
+StudentsCollection = db.getCollection("Student")
+StudentsCollection.deleteMany({})
+StudentsCollection.insertMany([])
