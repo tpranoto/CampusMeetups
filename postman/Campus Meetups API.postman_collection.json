@@ -1,0 +1,600 @@
+{
+	"info": {
+		"_postman_id": "96a0bdd2-9a18-4885-a0e3-2746d29a1eb9",
+		"name": "Campus Meetups API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "12436831",
+		"_collection_link": "https://speeding-escape-584891.postman.co/workspace/Team-Workspace~e7732165-a47c-49cc-816b-8eadd64cc340/collection/12436831-96a0bdd2-9a18-4885-a0e3-2746d29a1eb9?action=share&source=collection_link&creator=12436831"
+	},
+	"item": [
+		{
+			"name": "Trip",
+			"item": [
+				{
+					"name": "Create new trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Trip1-new-created-wow\",\n    \"description\":\"this is the first trip created\",\n    \"image\":\"http://foo.bar/randompathtotheiamge/img.jpg\",\n    \"location\": \"Seattle, Washington\",\n    \"date\":\"2024-10-24T12:00:00Z\",\n    \"organizerId\":\"2b8f3c2a1d6e9c4f3b5a0e8c1d7b3a9e\", //a student id from population script\n    \"categoryId\": \"c8a7e3f6b2d4e9c6f3b1e2a5f6c9b4d1\" // Art category Id from population script\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/app/trip"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a trip",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/trip/:tripId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"trip",
+								":tripId"
+							],
+							"variable": [
+								{
+									"key": "tripId",
+									"value": "2d5c7b9e4a1f0e3c6b8d2a1f4e5c9b3a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/trip?perPage=20&page=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"trip"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "a3f9b8c5e90b5d6f8e4a0f8f4e2c5f8a",
+									"disabled": true
+								},
+								{
+									"key": "perPage",
+									"value": "20"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update trip",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Trip2-c\",\n    \"description\": \"changed - this is the second trip created\",\n    \"status\": \"CREATED\",\n    \"image\": \"some url2 here\",\n    \"location\": \"Seattle, Washington\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/trip/:tripId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"trip",
+								":tripId"
+							],
+							"variable": [
+								{
+									"key": "tripId",
+									"value": "2d5c7b9e4a1f0e3c6b8d2a1f4e5c9b3a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete trip",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/trip/:tripId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"trip",
+								":tripId"
+							],
+							"variable": [
+								{
+									"key": "tripId",
+									"value": "2d5c7b9e4a1f0e3c6b8d2a1f4e5c9b3a"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Create new category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Museums\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/app/category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/category/:categoryId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"category",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "197ffec2b5903df36286289f0efa6696"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/app/category"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/category/:categoryId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"category",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "197ffec2b5903df36286289f0efa6696"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Create new student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fname\": \"HEY\",\n    \"lname\": \"YO\",\n    \"email\": \"heyyo@seattleu.edu\",\n    \"phoneNumber\": \"332-001-3934\",\n    \"verified\": \"true\",\n    \"status\": \"Active\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/app/student"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/app/student"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/student/:studentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"student",
+								":studentId"
+							],
+							"variable": [
+								{
+									"key": "studentId",
+									"value": "2b8f3c2a1d6e9c4f3b5a0e8c1d7b3a9e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update student",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fname\": \"HEY\",\n    \"lname\": \"HO\",\n    \"email\": \"heyno@seattleu.edu\",\n    \"phoneNumber\": \"333-001-3934\",\n    \"verified\": \"true\",\n    \"status\": \"Active\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/student/:studentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"student",
+								":studentId"
+							],
+							"variable": [
+								{
+									"key": "studentId",
+									"value": "8a4f944c993b11de0e989cdcb1a3a21f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/student/:studentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"student",
+								":studentId"
+							],
+							"variable": [
+								{
+									"key": "studentId",
+									"value": "8a4f944c993b11de0e989cdcb1a3a21f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attendee",
+			"item": [
+				{
+					"name": "Create new attendee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studentId\":\"8a4f944c993b11de0e989cdcb1a3a21f\",\n    \"tripId\":\"8b6153c3e6f7b5a8ed937bf88f361d06\",\n    \"fname\": \"James\",\n    \"lname\": \"Doe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/app/attendee"
+					},
+					"response": []
+				},
+				{
+					"name": "Get attended trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/attendee/:studentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"attendee",
+								":studentId"
+							],
+							"variable": [
+								{
+									"key": "studentId",
+									"value": "2b8f3c2a1d6e9c4f3b5a0e8c1d7b3a9e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get trip's attendees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/attendee/trip/:tripId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"attendee",
+								"trip",
+								":tripId"
+							],
+							"variable": [
+								{
+									"key": "tripId",
+									"value": "2d5c7b9e4a1f0e3c6b8d2a1f4e5c9b3a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete attendee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/attendee/:studentId/trip/:tripId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"attendee",
+								":studentId",
+								"trip",
+								":tripId"
+							],
+							"variable": [
+								{
+									"key": "studentId",
+									"value": "8a4f944c993b11de0e989cdcb1a3a21f"
+								},
+								{
+									"key": "tripId",
+									"value": "8b6153c3e6f7b5a8ed937bf88f361d06"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "Create new report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"Scam attempts\",\n    \"detail\": \"User sent phishing links to multiple users.\",\n    \"status\": \"Ongoing\",\n    \"reporterId\": \"8a4f944c993b11de0e989cdcb1a3a21f\",\n    \"reportedId\": \"c3563a637c5b58fbf2ba5b7ee7f4876b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/app/report"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/app/report"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/report/:reportId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"report",
+								":reportId"
+							],
+							"variable": [
+								{
+									"key": "reportId",
+									"value": "4b8e1d0c3f5a2b6e9d7c1f4a3e8d5b2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update report",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"Scam attempts\",\n    \"detail\": \"User sent phishing links to multiple users. + New Details added\",\n    \"status\": \"Ongoing\",\n    \"reporterId\": \"8a4f944c993b11de0e989cdcb1a3a21f\",\n    \"reportedId\": \"c3563a637c5b58fbf2ba5b7ee7f4876b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/report/:reportId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"report",
+								":reportId"
+							],
+							"variable": [
+								{
+									"key": "reportId",
+									"value": "f8f6a45f5b634d7cfd0ad2b7f24dbca8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete report",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/report/:reportId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"report",
+								":reportId"
+							],
+							"variable": [
+								{
+									"key": "reportId",
+									"value": "f8f6a45f5b634d7cfd0ad2b7f24dbca8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -105,7 +105,7 @@ class TripModel {
             location: "$location",
             date: "$date",
             organizer: {
-              organizerId: "$organizer.organizerId",
+              organizerId: "$organizer.studentId",
               fname: "$organizer.fname",
               lname: "$organizer.lname",
             },
