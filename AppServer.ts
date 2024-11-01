@@ -12,7 +12,6 @@ const mongoDBConnection =
   ":" +
   encodeURIComponent(dbPassword) +
   process.env.DB_INFO;
-console.log("server db connection URL " + mongoDBConnection);
 
 let server: any = new App(mongoDBConnection).expressApp;
 server.listen(port);
