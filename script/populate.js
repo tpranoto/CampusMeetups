@@ -462,8 +462,6 @@ TripsCollection.insertMany([
     }
 ]);
 
-['2f3a5e1d9c7b4e0a6b8d1c3e2f9b6a4',  'a7c2e4b8d5f9a1d0c6b3e2f4a8e1b5c',  '6e4a3d1b2f8c7a5d9e0f4b1c2e5f8d3',  'f3e8c6b2a5d1b9c4f0a2e7e1d8b3f5',  'd1b2e5f8c9a4d0f7b3e1c6d2a5e7c4b',  '9a3e2b5d1c8f6d4a0b5c7e1f2b9e3c',  '8f1c6d9e4b0a5e3c2d7b8e1f4c2a9b7',  'c5d1b2e9f4a3e7c8b0a6f2d1e5b4d3']
-
 reporterIds = [
     "2b8f3c2a1d6e9c4f3b5a0e8c1d7b3a9e",  
     "c1e4f7b8d0c9a5e1b2f6a8e3d4c5b0f7",  
