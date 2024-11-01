@@ -204,9 +204,11 @@ class TripModel {
           image: 1,
           location: 1,
           date: 1,
-          "organizer.organizerId": 1,
-          "organizer.fname": 1,
-          "organizer.lname": 1,
+          organizer: {
+            organizerId: "$organizer.studentId",
+            fname: "$organizer.fname",
+            lname: "$organizer.lname"
+          },
           "category.categoryId": 1,
           "category.name": 1,
         },
