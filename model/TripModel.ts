@@ -219,7 +219,7 @@ class TripModel {
     }
     var query = this.model.find(filter);
     query.skip(page * perPage);
-    query.limit(perPage + 1); // add 1 more to calculate next page in pagination
+    query.limit(perPage);
     query.select("-_id -__v");
     try {
       const itemArray = await query.exec();
