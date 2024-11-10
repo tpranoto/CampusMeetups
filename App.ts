@@ -76,12 +76,23 @@ class App {
           res.status(400).json({ error: "page must be 0 or larger" });
           return;
         }
+
+        var expand =
+          query.expand !== undefined
+            ? JSON.parse(query.expand.toLowerCase())
+            : false;
       } catch (e) {
         res.status(400).json({ error: "bad query params" });
         return;
       }
       console.log("Query multiple trips");
-      await this.Trip.retrieveAllTrips(res, categoryId, perPage, page);
+      await this.Trip.retrieveAllActiveTrips(
+        res,
+        categoryId,
+        perPage,
+        page,
+        expand
+      );
     });
     // Update a trip with tripId
     router.patch("/app/trip/:tripId", async (req, res) => {
@@ -197,7 +208,7 @@ class App {
     router.delete("/app/student/:studentId", async (req, res) => {
       const studentId = req.params.studentId;
       try {
-        const tripsDeleted = await this.Attendee.deleteAttendedTrips(studentId)
+        const tripsDeleted = await this.Attendee.deleteAttendedTrips(studentId);
         const result = await this.Student.deleteStudent(studentId);
         res.json(result);
       } catch (e) {
@@ -236,7 +247,7 @@ class App {
       const reportId = req.params.reportId;
       try {
         const reportDetails = await this.Report.getReportDetails(reportId);
-        if (reportDetails.length == 0){
+        if (reportDetails.length == 0) {
           res.json({});
         }
         res.json(reportDetails[0]);

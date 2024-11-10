@@ -1,6 +1,7 @@
 import * as Mongoose from "mongoose";
 import { ITripModel } from "../interface/ITripModel";
 import * as crypto from "crypto";
+import exp from "constants";
 
 class TripModel {
   public schema: any;
@@ -16,15 +17,32 @@ class TripModel {
   public createSchema() {
     this.schema = new Mongoose.Schema(
       {
-        tripId: String,
-        name: String,
+        tripId: {
+          type: String,
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
         description: String,
-        status: String,
+        status: {
+          type: String,
+          enum: ["Ongoing", "Completed", "Cancelled"],
+          required: true,
+          default: "Ongoing",
+        },
         image: String,
         location: String,
-        date: Date,
-        organizerId: String,
-        categoryId: String,
+        timestamp: Date,
+        organizerId: {
+          type: String,
+          required: true,
+        },
+        categoryId: {
+          type: String,
+          required: true,
+        },
       },
       { collection: "Trip" }
     );
@@ -44,8 +62,11 @@ class TripModel {
     tripObj.tripId = id;
 
     try {
-      await this.model.create([tripObj]);
-      response.json(tripObj);
+      const createdTrip = await this.model.create(tripObj);
+      const cleanedTripObj = createdTrip.toObject();
+      delete cleanedTripObj._id;
+      delete cleanedTripObj.__v;
+      response.json(cleanedTripObj);
     } catch (e) {
       console.error(e);
       var msg = `failed to create trip ${JSON.stringify(tripObj)}`;
@@ -103,7 +124,7 @@ class TripModel {
             status: "$status",
             image: "$image",
             location: "$location",
-            date: "$date",
+            timestamp: "$timestamp",
             organizer: {
               organizerId: "$organizer.studentId",
               fname: "$organizer.fname",
@@ -132,10 +153,17 @@ class TripModel {
           status: "$_id.status",
           image: "$_id.image",
           location: "$_id.location",
-          date: "$_id.date",
-          organizer: "$_id.organizer",
-          category: "$_id.category",
-          attendees: 1,
+          timestamp: "$_id.timestamp",
+          organizerId: "$_id.organizer.organizerId",
+          organizerData: {
+            fname: "$_id.organizer.fname",
+            lname: "$_id.organizer.lname",
+          },
+          categoryId: "$_id.category.categoryId",
+          categoryData: {
+            name: "$_id.category.name",
+          },
+          attendees: "$attendees",
         },
       },
     ]);
@@ -152,15 +180,69 @@ class TripModel {
     }
   }
 
-  public async retrieveAllTrips(
+  public async retrieveAllActiveTrips(
     response: any,
     catId: string,
     perPage: number,
-    page: number
+    page: number,
+    expand: boolean
   ): Promise<any> {
-    var filter = {};
+    if (expand) {
+      return this.retrieveExpandedAllActiveTrips(
+        response,
+        catId,
+        perPage,
+        page,
+        expand
+      );
+    } else {
+      return this.retrieveSimpleAllActiveTrips(
+        response,
+        catId,
+        perPage,
+        page,
+        expand
+      );
+    }
+  }
+
+  public async retrieveSimpleAllActiveTrips(
+    response: any,
+    catId: string,
+    perPage: number,
+    page: number,
+    expand: boolean
+  ): Promise<any> {
+    var filter: { [key: string]: any } = { status: "Ongoing" };
     if (catId != null) {
-      filter = { categoryId: catId };
+      filter.categoryId = catId;
+    }
+    var query = this.model.find(filter);
+    query.skip(page * perPage);
+    query.limit(perPage + 1); // add 1 more to calculate next page in pagination
+    query.select("-_id -__v");
+    try {
+      const itemArray = await query.exec();
+      response.json(
+        this.contructAllTripsResponse(itemArray, catId, page, perPage, expand)
+      );
+    } catch (e) {
+      console.error(e);
+      var msg = `failed to retrieve trips`;
+      response.status(500).json({ error: msg });
+    }
+  }
+
+  public async retrieveExpandedAllActiveTrips(
+    response: any,
+    catId: string,
+    perPage: number,
+    page: number,
+    expand: boolean
+  ): Promise<any> {
+    var filter: { [key: string]: any } = { status: "Ongoing" };
+    if (catId != null) {
+      filter.categoryId = catId;
     }
     var query = this.model.aggregate([
       {
@@ -203,21 +285,25 @@ class TripModel {
           status: 1,
           image: 1,
           location: 1,
-          date: 1,
-          organizer: {
-            organizerId: "$organizer.studentId",
+          timestamp: 1,
+          organizerId: 1,
+          organizerData: {
             fname: "$organizer.fname",
-            lname: "$organizer.lname"
+            lname: "$organizer.lname",
           },
-          "category.categoryId": 1,
-          "category.name": 1,
+          categoryId: 1,
+          categoryData: {
+            name: "$category.name",
+          },
         },
       },
     ]);
 
     try {
       const itemArray = await query.exec();
-      response.json({ data: itemArray, perPage: perPage, page: page });
+      response.json(
+        this.contructAllTripsResponse(itemArray, catId, page, perPage, expand)
+      );
     } catch (e) {
       console.error(e);
       var msg = `failed to retrieve trips`;
@@ -258,6 +344,80 @@ class TripModel {
       var msg = `failed to delete trip ${tripId}`;
       response.status(500).json({ error: msg });
     }
+  }
+
+  private contructNextPageUrl(
+    dataLen: number,
+    catId: string,
+    page: number,
+    perPage: number,
+    expand: boolean
+  ): string | null {
+    if (dataLen <= perPage) {
+      return null;
+    }
+
+    return this.constructPageUrl(catId, page, perPage, expand);
+  }
+
+  private constructPrevPageUrl(
+    catId: string,
+    page: number,
+    perPage: number,
+    expand: boolean
+  ): string | null {
+    if (page < 0) {
+      return null;
+    }
+
+    return this.constructPageUrl(catId, page, perPage, expand);
+  }
+
+  private constructPageUrl(
+    catId: string,
+    page: number,
+    perPage: number,
+    expand: boolean
+  ): string | null {
+    var paginationUrl =
+      "http://localhost:8080/app/trip?page=" + page + "&perPage=" + perPage;
+
+    if (catId != null) {
+      paginationUrl += "&categoryId=" + catId;
+    }
+
+    if (expand) {
+      paginationUrl += "&expand=true";
+    }
+
+    return paginationUrl;
+  }
+
+  private contructAllTripsResponse(
+    itemArray: Array<Object>,
+    catId: string,
+    page: number,
+    perPage: number,
+    expand: boolean
+  ): Object {
+    var nextPage = page + 1;
+    var prevPage = page - 1;
+    var arrayLen = itemArray.length;
+    itemArray.pop(); // remove extra element in array that used for pagination logic
+
+    return {
+      data: itemArray,
+      page: page,
+      perPage: perPage,
+      nextPage: this.contructNextPageUrl(
+        arrayLen,
+        catId,
+        nextPage,
+        perPage,
+        expand
+      ),
+      prevPage: this.constructPrevPageUrl(catId, prevPage, perPage, expand),
+    };
   }
 }
 

@@ -7,7 +7,7 @@ interface ITripModel extends mongoose.Document {
   status: string;
   image: string;
   location: string;
-  date: Date;
+  timestamp: Date;
   organizerId: string;
   categoryId: string;
 }
