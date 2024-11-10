@@ -89,7 +89,7 @@ class App {
       await this.Trip.retrieveAllActiveTrips(
         res,
         categoryId,
-        perPage + 1, // add 1 more to calculate next page in pagination
+        perPage,
         page,
         expand
       );

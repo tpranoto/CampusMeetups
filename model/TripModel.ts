@@ -219,7 +219,7 @@ class TripModel {
     }
     var query = this.model.find(filter);
     query.skip(page * perPage);
-    query.limit(perPage);
+    query.limit(perPage + 1); // add 1 more to calculate next page in pagination
     query.select("-_id -__v");
     try {
       const itemArray = await query.exec();
@@ -252,7 +252,7 @@ class TripModel {
         $skip: page * perPage,
       },
       {
-        $limit: perPage,
+        $limit: perPage + 1, // add 1 more to calculate next page in pagination
       },
       {
         $lookup: {
@@ -353,7 +353,7 @@ class TripModel {
     perPage: number,
     expand: boolean
   ): string | null {
-    if (dataLen <= perPage) {
+    if (dataLen < perPage) {
       return null;
     }
 
@@ -403,7 +403,9 @@ class TripModel {
     var nextPage = page + 1;
     var prevPage = page - 1;
     var arrayLen = itemArray.length;
-    itemArray.pop(); // remove extra element in array that used for pagination logic
+    if (arrayLen >= perPage) {
+      itemArray.pop(); // remove extra element in array that used for pagination logic
+    }
 
     return {
       data: itemArray,
