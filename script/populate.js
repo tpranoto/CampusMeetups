@@ -48,7 +48,7 @@ StudentsCollection.insertMany([
         "email": "liamsmith@seattleu.edu",
         "phoneNumber": "234-567-8901",
         "verified": "true",
-        "status": "active"
+        "status": "Active"
     },
     {
         "studentId": "c1e4f7b8d0c9a5e1b2f6a8e3d4c5b0f7",
@@ -57,7 +57,7 @@ StudentsCollection.insertMany([
         "email": "oliviajohnson@seattleu.edu",
         "phoneNumber": "345-678-9012",
         "verified": "true",
-        "status": "active"
+        "status": "Active"
     },
     {
         "studentId": "e3a7d1f9c2b5e6d4f8a1b3c0e7c2d9e5",
@@ -66,7 +66,7 @@ StudentsCollection.insertMany([
         "email": "noahbrown@seattleu.edu",
         "phoneNumber": "456-789-0123",
         "verified": "false",
-        "status": "inactive"
+        "status": "Inactive"
     },
     {
         "studentId": "4b8c3f1e6d0a5b2c9e7d4f0e1c8b3d7a",
@@ -75,7 +75,7 @@ StudentsCollection.insertMany([
         "email": "emmadavis@seattleu.edu",
         "phoneNumber": "567-890-1234",
         "verified": "true",
-        "status": "active"
+        "status": "Active"
     },
     {
         "studentId": "9e1a4c5b2d8f3a7e6c0b1d9f8e4a2c3b",
@@ -84,7 +84,7 @@ StudentsCollection.insertMany([
         "email": "avagarcia@seattleu.edu",
         "phoneNumber": "678-901-2345",
         "verified": "true",
-        "status": "active"
+        "status": "Active"
     },
     {
         "studentId": "5c2e8d1b4f0e3a6d9b7a5f4c3e2b1a7d",
@@ -93,7 +93,7 @@ StudentsCollection.insertMany([
         "email": "jamesmartinez@seattleu.edu",
         "phoneNumber": "789-012-3456",
         "verified": "false",
-        "status": "inactive"
+        "status": "Inactive"
     },
     {
         "studentId": "f0a3e9b5c2d1a8f6e4b7d0c2a3e9f1b4",
@@ -102,7 +102,7 @@ StudentsCollection.insertMany([
         "email": "sophiahernandez@seattleu.edu",
         "phoneNumber": "890-123-4567",
         "verified": "true",
-        "status": "active"
+        "status": "Active"
     },
     {
         "studentId": "3f7c1a2e4b5d6e9f8a0b3d1c5e4f2b8e",
@@ -111,7 +111,7 @@ StudentsCollection.insertMany([
         "email": "jacksonlopez@seattleu.edu",
         "phoneNumber": "901-234-5678",
         "verified": "true",
-        "status": "active"
+        "status": "Active"
     },
     {
         "studentId": "b4d9e5c1f7a2b3e8c0a6d4f2e1c5b7a8",
@@ -120,7 +120,7 @@ StudentsCollection.insertMany([
         "email": "isabellawilson@seattleu.edu",
         "phoneNumber": "012-345-6789",
         "verified": "false",
-        "status": "inactive"
+        "status": "Inactive"
     },
     {
         "studentId": "e6b4c2f8d1e3a5b9f0c7d1a4e6c8b2d7",
@@ -129,7 +129,7 @@ StudentsCollection.insertMany([
         "email": "lucasanderson@seattleu.edu",
         "phoneNumber": "123-456-7891",
         "verified": "true",
-        "status": "active"
+        "status": "Active"
     }
 ]);
 
@@ -464,7 +464,7 @@ ReportsCollection.insertMany([
         "reportId": "b5a6d3e8c1f4e2b7a0f5d9c3e1b7f2a",
         "reason": "Spam messages",
         "detail": "This user has been sending promotional links repeatedly.",
-        "status": "On-Going",
+        "status": "Ongoing",
         "reporterId": getRandomElement(reporterIds),
         "reportedId": getRandomElement(reportedIds)
     },
@@ -480,7 +480,7 @@ ReportsCollection.insertMany([
         "reportId": "3c2b1d9f6a8e0a5b7c1d4e2e3f6f7a8",
         "reason": "Harassment",
         "detail": "Reported for repeated abusive language in comments.",
-        "status": "On-Going",
+        "status": "Ongoing",
         "reporterId": getRandomElement(reporterIds),
         "reportedId": getRandomElement(reportedIds)
     },
@@ -496,7 +496,7 @@ ReportsCollection.insertMany([
         "reportId": "4b8e1d0c3f5a2b6e9d7c1f4a3e8d5b2",
         "reason": "Scam attempts",
         "detail": "User sent phishing links to multiple users.",
-        "status": "On-Going",
+        "status": "Ongoing",
         "reporterId": getRandomElement(reporterIds),
         "reportedId": getRandomElement(reportedIds)
     }

@@ -16,12 +16,26 @@ class ReportModel {
   public createSchema() {
     this.schema = new Mongoose.Schema(
       {
-        reportId: String,
+        reportId: {
+          type: String,
+          required: true,
+        },
         reason: String,
         detail: String,
-        status: String,
-        reporterId: String,
-        reportedId: String,
+        status: {
+          type: String,
+          enum: ["Ongoing", "Resolved"],
+          required: true,
+          default: "Ongoing",
+        },
+        reporterId: {
+          type: String,
+          required: true,
+        },
+        reportedId: {
+          type: String,
+          required: true,
+        },
       },
       { collection: "Report" }
     );
@@ -40,8 +54,11 @@ class ReportModel {
     const id = crypto.randomBytes(16).toString("hex");
     reportObj.reportId = id;
     try {
-      await this.model.create([reportObj]);
-      return reportObj;
+      const createdObj = await this.model.create(reportObj);
+      const cleanedObj = createdObj.toObject();
+      delete cleanedObj._id;
+      delete cleanedObj.__v;
+      return cleanedObj;
     } catch (e) {
       console.error(e);
       throw new Error("Error creating report.");

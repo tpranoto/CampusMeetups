@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"Trip1-new-created-wow\",\n    \"description\":\"this is the first trip created\",\n    \"image\":\"http://foo.bar/randompathtotheiamge/img.jpg\",\n    \"location\": \"Seattle, Washington\",\n    \"date\":\"2024-10-24T12:00:00Z\",\n    \"organizerId\":\"2b8f3c2a1d6e9c4f3b5a0e8c1d7b3a9e\", //a student id from population script\n    \"categoryId\": \"c8a7e3f6b2d4e9c6f3b1e2a5f6c9b4d1\" // Art category Id from population script\n}",
+							"raw": "{\n    \"name\":\"Trip1-new-created-wow\",\n    \"description\":\"this is the first trip created\",\n    \"image\":\"http://foo.bar/randompathtotheiamge/img.jpg\",\n    \"location\": \"Seattle, Washington\",\n    \"timestamp\":\"2024-10-24T12:00:00Z\",\n    \"organizerId\":\"2b8f3c2a1d6e9c4f3b5a0e8c1d7b3a9e\", //a student id from population script\n    \"categoryId\": \"c8a7e3f6b2d4e9c6f3b1e2a5f6c9b4d1\" // Art category Id from population script\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -61,7 +61,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/trip?perPage=20&page=0",
+							"raw": "http://localhost:8080/app/trip?perPage=5&page=4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -79,11 +79,16 @@
 								},
 								{
 									"key": "perPage",
-									"value": "20"
+									"value": "5"
 								},
 								{
 									"key": "page",
-									"value": "0"
+									"value": "4"
+								},
+								{
+									"key": "expand",
+									"value": "true",
+									"disabled": true
 								}
 							]
 						}
@@ -146,7 +151,7 @@
 							"variable": [
 								{
 									"key": "tripId",
-									"value": "2d5c7b9e4a1f0e3c6b8d2a1f4e5c9b3a"
+									"value": "9ede1db7dead48bac98ac0330b8a124e"
 								}
 							]
 						}
@@ -251,7 +256,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"fname\": \"HEY\",\n    \"lname\": \"YO\",\n    \"email\": \"heyyo@seattleu.edu\",\n    \"phoneNumber\": \"332-001-3934\",\n    \"verified\": \"true\",\n    \"status\": \"Active\"\n}",
+							"raw": "{\n    \"fname\": \"HEY\",\n    \"lname\": \"YO\",\n    \"email\": \"heyyo@seattleu.edu\",\n    \"phoneNumber\": \"332-001-3934\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -484,7 +489,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"reason\": \"Scam attempts\",\n    \"detail\": \"User sent phishing links to multiple users.\",\n    \"status\": \"Ongoing\",\n    \"reporterId\": \"8a4f944c993b11de0e989cdcb1a3a21f\",\n    \"reportedId\": \"c3563a637c5b58fbf2ba5b7ee7f4876b\"\n}",
+							"raw": "{\n    \"reason\": \"Scam attempts\",\n    \"detail\": \"User sent phishing links to multiple users.\",\n    \"reporterId\": \"8a4f944c993b11de0e989cdcb1a3a21f\",\n    \"reportedId\": \"c3563a637c5b58fbf2ba5b7ee7f4876b\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

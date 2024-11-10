@@ -16,8 +16,14 @@ class AttendeeModel {
   public createSchema() {
     this.schema = new Mongoose.Schema(
       {
-        studentId: String,
-        tripId: String,
+        studentId: {
+          type: String,
+          required: true,
+        },
+        tripId: {
+          type: String,
+          required: true,
+        },
         fname: String,
         lname: String,
       },
