@@ -1,7 +1,6 @@
 import * as Mongoose from "mongoose";
 import { ITripModel } from "../interface/ITripModel";
 import * as crypto from "crypto";
-import exp from "constants";
 
 class TripModel {
   public schema: any;
