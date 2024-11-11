@@ -172,7 +172,16 @@ class TripModel {
       if (result.length == 0) {
         response.json({});
       }
-      response.json(result[0]);
+      var resultObj = result[0];
+      // FIXME: correct empty object when empty attendees with proper solution
+      if (
+        resultObj.attendees.length === 1 &&
+        resultObj.attendees[0].studentId === undefined
+      ) {
+        resultObj.attendees = [];
+      }
+
+      response.json(resultObj);
     } catch (e) {
       console.error(e);
       var msg = `failed to retrieve trip ${tripId}`;
