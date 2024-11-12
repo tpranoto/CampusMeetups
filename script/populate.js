@@ -154,6 +154,12 @@ categoryIds = [
     "1e3b5d7c8a4f2e6f8b2c9a3d7e1b4f0d"
 ];
 
+function getUpcomingDate(days){
+    today = new Date();
+    today.setDate(today.getDate() + days);
+    return today;
+}
+
 if (!db.getCollectionNames().includes("Trip")) {
     db.createCollection("Trip");
 }
@@ -167,7 +173,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/mountain-nature_GKXSAHXHOS.jpg",
         "location": "Long Beach, California",
-        "timestamp": new Date("2024-10-15T10:00:00.000Z"),
+        "timestamp": getUpcomingDate(0),
         "organizerId": studentIds[0],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -178,7 +184,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/bridge-water_ZWKZNF3OQW.jpg",
         "location": "Mount Tamalpais, California",
-        "timestamp": new Date("2024-10-20T09:00:00.000Z"),
+        "timestamp": getUpcomingDate(1),
         "organizerId": studentIds[0],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -189,7 +195,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/sand-beach_WY85MZFCDN.jpg",
         "location": "San Francisco, California",
-        "timestamp": new Date("2024-10-25T11:00:00.000Z"),
+        "timestamp": getUpcomingDate(2),
         "organizerId": studentIds[1],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -200,7 +206,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/city-bridge_NKZOS5SNK6.jpg",
         "location": "Yosemite National Park, California",
-        "timestamp": new Date("2024-10-30T17:00:00.000Z"),
+        "timestamp": getUpcomingDate(3),
         "organizerId": studentIds[1],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -211,7 +217,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/waterfall-iceland_AF9QPX5P5T.jpg",
         "location": "Big Sur, California",
-        "timestamp": new Date("2024-11-05T08:00:00.000Z"),
+        "timestamp": getUpcomingDate(4),
         "organizerId": studentIds[2],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -222,7 +228,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/mountain-waterfall_ON8ZPWSOAI.jpg",
         "location": "Napa Valley, California",
-        "timestamp": new Date("2024-11-10T14:00:00.000Z"),
+        "timestamp": getUpcomingDate(5),
         "organizerId": studentIds[2],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -233,7 +239,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/iceland-mountain_JHE2CJRPEQ.jpg",
         "location": "Washington, D.C.",
-        "timestamp": new Date("2024-11-15T09:30:00.000Z"),
+        "timestamp": getUpcomingDate(6),
         "organizerId": studentIds[3],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -244,7 +250,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/iceland-beach_ABGWJNSGKR.jpg",
         "location": "Orlando, Florida",
-        "timestamp": new Date("2024-11-20T10:00:00.000Z"),
+        "timestamp": getUpcomingDate(7),
         "organizerId": studentIds[3],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -255,7 +261,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "",
         "location": "Aspen, Colorado",
-        "timestamp": new Date("2024-11-25T16:00:00.000Z"),
+        "timestamp": getUpcomingDate(8),
         "organizerId": studentIds[4],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -266,7 +272,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/winter-ocean_5EWKDXCWWW.jpg",
         "location": "Park City, Utah",
-        "timestamp": new Date("2024-12-01T09:00:00.000Z"),
+        "timestamp": getUpcomingDate(9),
         "organizerId": studentIds[4],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -277,7 +283,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/mountains-peaks_MFDY4VHVS4.jpg",
         "location": "Joshua Tree National Park, California",
-        "timestamp": new Date("2024-12-05T12:00:00.000Z"),
+        "timestamp": getUpcomingDate(9),
         "organizerId": studentIds[5],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -288,7 +294,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/sky-stars_QKLA2F9TKK.jpg",
         "location": "New Orleans, Louisiana",
-        "timestamp": new Date("2024-12-10T11:00:00.000Z"),
+        "timestamp": getUpcomingDate(8),
         "organizerId": studentIds[5],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -299,7 +305,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "",
         "location": "Yellowstone National Park, Wyoming",
-        "timestamp": new Date("2024-12-15T09:00:00.000Z"),
+        "timestamp": getUpcomingDate(7),
         "organizerId": studentIds[6],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -310,7 +316,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/stars-night%20sky_PHOFG380TU.jpg",
         "location": "Lake Tahoe, California",
-        "timestamp": new Date("2024-12-20T10:00:00.000Z"),
+        "timestamp": getUpcomingDate(6),
         "organizerId": studentIds[6],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -321,7 +327,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/architecture-building_DO54WMU8K3.jpg",
         "location": "Sonoma County, California",
-        "timestamp": new Date("2024-12-25T11:30:00.000Z"),
+        "timestamp": getUpcomingDate(5),
         "organizerId": studentIds[7],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -332,7 +338,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/man-ocean_NLYR8SRNBA.jpg",
         "location": "Lake Placid, New York",
-        "timestamp": new Date("2024-12-30T15:00:00.000Z"),
+        "timestamp": getUpcomingDate(4),
         "organizerId": studentIds[7],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -343,7 +349,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "",
         "location": "Sedona, Arizona",
-        "timestamp": new Date("2025-01-05T13:00:00.000Z"),
+        "timestamp": getUpcomingDate(3),
         "organizerId": studentIds[8],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -354,7 +360,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/aerial-aerial%20photo_SV1SXFMWQU.jpg",
         "location": "Banff National Park, Canada",
-        "timestamp": new Date("2025-01-10T10:00:00.000Z"),
+        "timestamp": getUpcomingDate(2),
         "organizerId": studentIds[8],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -365,7 +371,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/building-architecture_VF93RWL0YD.jpg",
         "location": "Boulder, Colorado",
-        "timestamp": new Date("2025-01-15T12:00:00.000Z"),
+        "timestamp": getUpcomingDate(1),
         "organizerId": studentIds[9],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -376,7 +382,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/architecture-building_VQ0MS52PRY.jpg",
         "location": "Malibu, California",
-        "timestamp": new Date("2025-01-20T10:00:00.000Z"),
+        "timestamp": getUpcomingDate(0),
         "organizerId": studentIds[9],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -387,7 +393,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/sunset-desert_7KE5ZOOJOT.jpg",
         "location": "Philadelphia, Pennsylvania",
-        "timestamp": new Date("2025-01-25T14:00:00.000Z"),
+        "timestamp": getUpcomingDate(4),
         "organizerId": studentIds[0],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -398,7 +404,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/seagull-water_7IK961PQJI.jpg",
         "location": "Santa Fe, New Mexico",
-        "timestamp": new Date("2025-01-30T11:00:00.000Z"),
+        "timestamp": getUpcomingDate(7),
         "organizerId": studentIds[0],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -409,7 +415,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "",
         "location": "Austin, Texas",
-        "timestamp": new Date("2025-02-05T18:00:00.000Z"),
+        "timestamp": getUpcomingDate(1),
         "organizerId": studentIds[9],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -420,7 +426,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/man-fitness_NKBW9THQYP.jpg",
         "location": "Red Rocks, Colorado",
-        "timestamp": new Date("2025-02-10T09:00:00.000Z"),
+        "timestamp": getUpcomingDate(9),
         "organizerId": studentIds[5],
         "categoryId": getRandomElement(categoryIds)
     },
@@ -431,7 +437,7 @@ TripsCollection.insertMany([
         "status": "Ongoing",
         "image": "https://cdn.stocksnap.io/img-thumbs/960w/guy-man_9RZJVHG39A.jpg",
         "location": "Lake Arrowhead, California",
-        "timestamp": new Date("2025-02-15T15:00:00.000Z"),
+        "timestamp": getUpcomingDate(2),
         "organizerId": studentIds[3],
         "categoryId": getRandomElement(categoryIds)
     }
