@@ -12,10 +12,3 @@
     ```bash
         npx mocha --reporter spec test/TEST_FILE_NAME.js
     ```
-4. Run all test files on `test/` with: (depending on your installation you might need npx)
-    ```bash
-        mocha --reporter spec test/**/*.js
-    ```
-    ```bash
-        npx mocha --reporter spec test/**/*.js
-    ```
