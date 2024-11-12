@@ -132,3 +132,4 @@ dist
 # compiled .ts into .js
 *.js
 !populate.js
+!test/*.js
