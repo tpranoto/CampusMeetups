@@ -354,6 +354,34 @@ class TripModel {
     }
   }
 
+  public async retrieveUpcomingActiveTrips(
+    response: any,
+    days: number,
+    limit: number | null
+  ) {
+    const today = new Date();
+    const upcomingDays = new Date(today);
+    upcomingDays.setDate(today.getDate() + days);
+
+    var query = this.model.find({
+      timestamp: { $gte: today, $lte: upcomingDays },
+      status: "Ongoing",
+    });
+
+    if (limit != null) {
+      query.limit(limit);
+    }
+
+    try {
+      const itemArray = await query.exec();
+      response.json(itemArray);
+    } catch (e) {
+      console.error(e);
+      const msg = `failed to retrieve trips for the next ${days} days`;
+      response.status(500).json({ error: msg });
+    }
+  }
+
   private contructNextPageUrl(
     dataLen: number,
     catId: string,

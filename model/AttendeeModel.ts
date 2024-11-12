@@ -63,7 +63,10 @@ class AttendeeModel {
   }
 
   // Retrieve the trip(s) for a student using studentId
-  public async retrieveAttendedTrips(studentId: string): Promise<any> {
+  public async retrieveAttendedTrips(
+    studentId: string,
+    limit: number | null
+  ): Promise<any> {
     try {
       const query = this.model.aggregate([
         {
@@ -97,6 +100,10 @@ class AttendeeModel {
           },
         },
       ]);
+      if (limit != null) {
+        query.limit(limit);
+      }
+
       const trips = await query.exec();
       return trips;
     } catch (e) {

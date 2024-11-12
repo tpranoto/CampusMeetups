@@ -55,6 +55,31 @@ class App {
       await this.Trip.createTrip(res, jsonObj);
     });
 
+    router.get("/app/trip/upcoming", async (req, res) => {
+      try {
+        var query: any = req.query;
+        if (query.days === undefined) {
+          res.status(400).json({ error: "days param must be a provided" });
+          return;
+        }
+        var days = parseInt(query.days);
+        if (days <= 0) {
+          res.status(400).json({ error: "days must be a positive integer" });
+          return;
+        }
+        var limit = query.limit !== undefined ? parseInt(query.limit) : null;
+        if (limit !== null && limit <= 0) {
+          res.status(400).json({ error: "limit must be a positive integer" });
+          return;
+        }
+      } catch (e) {
+        res.status(400).json({ error: "bad query params" });
+        return;
+      }
+      console.log(`Retrieve upcoming Trips in ${days} days`);
+      await this.Trip.retrieveUpcomingActiveTrips(res, days, limit);
+    });
+
     router.get("/app/trip/:tripId", async (req, res) => {
       var tripId = req.params.tripId;
       console.log(`Retrieve trip ${tripId}`);
@@ -94,6 +119,31 @@ class App {
         expand
       );
     });
+    // router.get("/app/trip/upcoming", async (req, res) => {
+    //   res.json("yay");
+    // try {
+    //   var query: any = req.query;
+    //   if (query.days === undefined) {
+    //     res.status(400).json({ error: "days param must be a provided" });
+    //     return;
+    //   }
+    //   var days = parseInt(query.days);
+    //   if (days <= 0) {
+    //     res.status(400).json({ error: "days must be a positive integer" });
+    //     return;
+    //   }
+    //   var limit = query.limit !== undefined ? parseInt(query.limit) : null;
+    //   if (limit !== null && limit <= 0) {
+    //     res.status(400).json({ error: "limit must be a positive integer" });
+    //     return;
+    //   }
+    // } catch (e) {
+    //   res.status(400).json({ error: "bad query params" });
+    //   return;
+    // }
+    // console.log(`Retrieve upcoming Trips in ${days} days`);
+    // await this.Trip.retrieveUpcomingActiveTrips(res, days, limit);
+    // });
     // Update a trip with tripId
     router.patch("/app/trip/:tripId", async (req, res) => {
       var tripId = req.params.tripId;
@@ -289,9 +339,24 @@ class App {
     // Get an attendee
     router.get("/app/attendee/:studentId", async (req, res) => {
       var studentId = req.params.studentId;
+      try {
+        var query: any = req.query;
+        var limit = query.limit !== undefined ? parseInt(query.limit) : null;
+        if (limit !== null && limit <= 0) {
+          res.status(400).json({ error: "limit must be a positive integer" });
+          return;
+        }
+      } catch (e) {
+        res.status(400).json({ error: "bad query params" });
+        return;
+      }
+
       console.log(`Retrieve Trips that a student is attending ${studentId}`);
       try {
-        const Trips = await this.Attendee.retrieveAttendedTrips(studentId);
+        const Trips = await this.Attendee.retrieveAttendedTrips(
+          studentId,
+          limit
+        );
         res.json(Trips);
       } catch (e) {
         console.error(e);
