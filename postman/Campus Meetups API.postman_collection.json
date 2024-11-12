@@ -96,6 +96,37 @@
 					"response": []
 				},
 				{
+					"name": "Get upcoming trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/app/trip/upcoming?days=1&limit=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"trip",
+								"upcoming"
+							],
+							"query": [
+								{
+									"key": "days",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update trip",
 					"request": {
 						"method": "PATCH",
@@ -395,7 +426,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/attendee/:studentId",
+							"raw": "http://localhost:8080/app/attendee/:studentId?limit=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -405,6 +436,12 @@
 								"app",
 								"attendee",
 								":studentId"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								}
 							],
 							"variable": [
 								{

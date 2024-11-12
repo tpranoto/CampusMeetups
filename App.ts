@@ -119,31 +119,6 @@ class App {
         expand
       );
     });
-    // router.get("/app/trip/upcoming", async (req, res) => {
-    //   res.json("yay");
-    // try {
-    //   var query: any = req.query;
-    //   if (query.days === undefined) {
-    //     res.status(400).json({ error: "days param must be a provided" });
-    //     return;
-    //   }
-    //   var days = parseInt(query.days);
-    //   if (days <= 0) {
-    //     res.status(400).json({ error: "days must be a positive integer" });
-    //     return;
-    //   }
-    //   var limit = query.limit !== undefined ? parseInt(query.limit) : null;
-    //   if (limit !== null && limit <= 0) {
-    //     res.status(400).json({ error: "limit must be a positive integer" });
-    //     return;
-    //   }
-    // } catch (e) {
-    //   res.status(400).json({ error: "bad query params" });
-    //   return;
-    // }
-    // console.log(`Retrieve upcoming Trips in ${days} days`);
-    // await this.Trip.retrieveUpcomingActiveTrips(res, days, limit);
-    // });
     // Update a trip with tripId
     router.patch("/app/trip/:tripId", async (req, res) => {
       var tripId = req.params.tripId;
