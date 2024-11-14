@@ -188,24 +188,28 @@ class TripModel {
     }
   }
 
-  public async retrieveAllActiveTrips(
+  public async retrieveAllTripsWithName(
     response: any,
+    searchedName: string,
     catId: string,
     perPage: number,
     page: number,
     expand: boolean
   ): Promise<any> {
+    var filter = { name: { $regex: searchedName, $options: "i" } };
     if (expand) {
-      return this.retrieveExpandedAllActiveTrips(
+      return this.retrieveExpandedAllTrips(
         response,
+        filter,
         catId,
         perPage,
         page,
         expand
       );
     } else {
-      return this.retrieveSimpleAllActiveTrips(
+      return this.retrieveSimpleAllTrips(
         response,
+        filter,
         catId,
         perPage,
         page,
@@ -214,14 +218,44 @@ class TripModel {
     }
   }
 
-  public async retrieveSimpleAllActiveTrips(
+  public async retrieveAllActiveTrips(
     response: any,
     catId: string,
     perPage: number,
     page: number,
     expand: boolean
   ): Promise<any> {
-    var filter: { [key: string]: any } = { status: "Ongoing" };
+    var filter = { status: "Ongoing" };
+    if (expand) {
+      return this.retrieveExpandedAllTrips(
+        response,
+        filter,
+        catId,
+        perPage,
+        page,
+        expand
+      );
+    } else {
+      return this.retrieveSimpleAllTrips(
+        response,
+        filter,
+        catId,
+        perPage,
+        page,
+        expand
+      );
+    }
+  }
+
+  public async retrieveSimpleAllTrips(
+    response: any,
+    baseFilter: Object,
+    catId: string,
+    perPage: number,
+    page: number,
+    expand: boolean
+  ): Promise<any> {
+    var filter: { [key: string]: any } = baseFilter;
     if (catId != null) {
       filter.categoryId = catId;
     }
@@ -241,14 +275,15 @@ class TripModel {
     }
   }
 
-  public async retrieveExpandedAllActiveTrips(
+  public async retrieveExpandedAllTrips(
     response: any,
+    baseFilter: Object,
     catId: string,
     perPage: number,
     page: number,
     expand: boolean
   ): Promise<any> {
-    var filter: { [key: string]: any } = { status: "Ongoing" };
+    var filter: { [key: string]: any } = baseFilter;
     if (catId != null) {
       filter.categoryId = catId;
     }
@@ -389,7 +424,7 @@ class TripModel {
     perPage: number,
     expand: boolean
   ): string | null {
-    if (dataLen < perPage) {
+    if (dataLen <= perPage) {
       return null;
     }
 
@@ -439,7 +474,7 @@ class TripModel {
     var nextPage = page + 1;
     var prevPage = page - 1;
     var arrayLen = itemArray.length;
-    if (arrayLen >= perPage) {
+    if (arrayLen > perPage) {
       itemArray.pop(); // remove extra element in array that used for pagination logic
     }
 
