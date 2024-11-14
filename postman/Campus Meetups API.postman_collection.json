@@ -24,7 +24,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/app/trip"
+						"url": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip"
 					},
 					"response": []
 				},
@@ -34,12 +34,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/trip/:tripId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/:tripId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"trip",
@@ -61,12 +61,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/trip?perPage=5&page=4",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip?perPage=5&page=4",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"trip"
@@ -96,17 +96,64 @@
 					"response": []
 				},
 				{
+					"name": "Get searched trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/search?name=Wild",
+							"protocol": "{{PRTCL}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"app",
+								"trip",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Wild"
+								},
+								{
+									"key": "perPage",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "expand",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": "a3f9b8c5e90b5d6f8e4a0f8f4e2c5f8a",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get upcoming trips",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/trip/upcoming?days=1&limit=1",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/upcoming?days=1&limit=1",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"trip",
@@ -141,12 +188,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/app/trip/:tripId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/:tripId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"trip",
@@ -168,12 +215,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/trip/:tripId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/:tripId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"trip",
@@ -208,7 +255,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/app/category"
+						"url": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/category"
 					},
 					"response": []
 				},
@@ -218,12 +265,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/category/:categoryId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/category/:categoryId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"category",
@@ -244,7 +291,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/app/category"
+						"url": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/category"
 					},
 					"response": []
 				},
@@ -254,12 +301,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/category/:categoryId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/category/:categoryId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"category",
@@ -294,7 +341,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/app/student"
+						"url": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/student"
 					},
 					"response": []
 				},
@@ -303,7 +350,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/app/student"
+						"url": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/student"
 					},
 					"response": []
 				},
@@ -313,12 +360,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/student/:studentId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/student/:studentId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"student",
@@ -349,12 +396,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/app/student/:studentId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/student/:studentId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"student",
@@ -376,12 +423,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/student/:studentId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/student/:studentId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"student",
@@ -416,7 +463,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/app/attendee"
+						"url": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/attendee"
 					},
 					"response": []
 				},
@@ -426,12 +473,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/attendee/:studentId?limit=1",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/attendee/:studentId?limit=1",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"attendee",
@@ -459,12 +506,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/attendee/trip/:tripId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/attendee/trip/:tripId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"attendee",
@@ -533,7 +580,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/app/report"
+						"url": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/report"
 					},
 					"response": []
 				},
@@ -542,7 +589,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/app/report"
+						"url": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/report"
 					},
 					"response": []
 				},
@@ -552,12 +599,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/report/:reportId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/report/:reportId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"report",
@@ -588,12 +635,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/app/report/:reportId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/report/:reportId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"report",
@@ -615,12 +662,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/app/report/:reportId",
-							"protocol": "http",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/report/:reportId",
+							"protocol": "{{PRTCL}}",
 							"host": [
-								"localhost"
+								"{{HOST}}"
 							],
-							"port": "8080",
+							"port": "{{PORT}}",
 							"path": [
 								"app",
 								"report",
