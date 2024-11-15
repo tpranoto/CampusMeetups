@@ -204,7 +204,8 @@ class TripModel {
         catId,
         perPage,
         page,
-        expand
+        expand,
+        ""
       );
     } else {
       return this.retrieveSimpleAllTrips(
@@ -213,7 +214,8 @@ class TripModel {
         catId,
         perPage,
         page,
-        expand
+        expand,
+        ""
       );
     }
   }
@@ -233,7 +235,8 @@ class TripModel {
         catId,
         perPage,
         page,
-        expand
+        expand,
+        ""
       );
     } else {
       return this.retrieveSimpleAllTrips(
@@ -242,7 +245,8 @@ class TripModel {
         catId,
         perPage,
         page,
-        expand
+        expand,
+        ""
       );
     }
   }
@@ -253,13 +257,22 @@ class TripModel {
     catId: string,
     perPage: number,
     page: number,
-    expand: boolean
+    expand: boolean,
+    sortFilter: string
   ): Promise<any> {
     var filter: { [key: string]: any } = baseFilter;
     if (catId != null) {
       filter.categoryId = catId;
     }
     var query = this.model.find(filter);
+    if (sortFilter != null) {
+      if (sortFilter === "asc") {
+        query.sort({ timestamp: 1 });
+      } else if (sortFilter === "desc") {
+        query.sort({ timestamp: -1 });
+      }
+    }
+
     query.skip(page * perPage);
     query.limit(perPage + 1); // add 1 more to calculate next page in pagination
     query.select("-_id -__v");
@@ -281,13 +294,15 @@ class TripModel {
     catId: string,
     perPage: number,
     page: number,
-    expand: boolean
+    expand: boolean,
+    sortFilter: string
   ): Promise<any> {
     var filter: { [key: string]: any } = baseFilter;
     if (catId != null) {
       filter.categoryId = catId;
     }
-    var query = this.model.aggregate([
+
+    var queryString: any[] = [
       {
         $match: filter,
       },
@@ -340,7 +355,21 @@ class TripModel {
           },
         },
       },
-    ]);
+    ];
+
+    if (sortFilter != null) {
+      if (sortFilter === "asc") {
+        queryString.push({
+          $sort: { timestamp: 1 },
+        });
+      } else if (sortFilter === "desc") {
+        queryString.push({
+          $sort: { timestamp: -1 },
+        });
+      }
+    }
+
+    var query = this.model.aggregate(queryString);
 
     try {
       const itemArray = await query.exec();
@@ -392,28 +421,41 @@ class TripModel {
   public async retrieveUpcomingActiveTrips(
     response: any,
     days: number,
-    limit: number | null
+    catId: string,
+    perPage: number,
+    page: number,
+    expand: boolean,
+    sortFilter: string
   ) {
     const today = new Date();
     const upcomingDays = new Date(today);
     upcomingDays.setDate(today.getDate() + days);
 
-    var query = this.model.find({
+    var filter = {
       timestamp: { $gte: today, $lte: upcomingDays },
       status: "Ongoing",
-    });
+    };
 
-    if (limit != null) {
-      query.limit(limit);
-    }
-
-    try {
-      const itemArray = await query.exec();
-      response.json(itemArray);
-    } catch (e) {
-      console.error(e);
-      const msg = `failed to retrieve trips for the next ${days} days`;
-      response.status(500).json({ error: msg });
+    if (expand) {
+      return this.retrieveExpandedAllTrips(
+        response,
+        filter,
+        catId,
+        perPage,
+        page,
+        expand,
+        sortFilter
+      );
+    } else {
+      return this.retrieveSimpleAllTrips(
+        response,
+        filter,
+        catId,
+        perPage,
+        page,
+        expand,
+        sortFilter
+      );
     }
   }
 

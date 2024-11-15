@@ -59,6 +59,7 @@ class App {
     router.get("/app/trip/upcoming", async (req, res) => {
       try {
         var query: any = req.query;
+        var categoryId = query.categoryId;
         if (query.days === undefined) {
           res.status(400).json({ error: "days param must be a provided" });
           return;
@@ -68,17 +69,43 @@ class App {
           res.status(400).json({ error: "days must be a positive integer" });
           return;
         }
-        var limit = query.limit !== undefined ? parseInt(query.limit) : null;
-        if (limit !== null && limit <= 0) {
-          res.status(400).json({ error: "limit must be a positive integer" });
+        var perPage =
+          query.perPage !== undefined ? parseInt(query.perPage) : 20;
+        if (isNaN(perPage) || perPage <= 0) {
+          res.status(400).json({ error: "perPage must be a positive integer" });
           return;
         }
+        var page = query.page !== undefined ? parseInt(query.page) : 0;
+        if (isNaN(page) || page < 0) {
+          res.status(400).json({ error: "page must be 0 or larger" });
+          return;
+        }
+
+        var sort =
+          query.sort === undefined ? undefined : query.sort.toLowerCase();
+        if (sort != null && sort !== "asc" && sort !== "desc") {
+          res.status(400).json({ error: "sort must be either asc or desc" });
+          return;
+        }
+
+        var expand =
+          query.expand !== undefined
+            ? JSON.parse(query.expand.toLowerCase())
+            : false;
       } catch (e) {
         res.status(400).json({ error: "bad query params" });
         return;
       }
       console.log(`Retrieve upcoming Trips in ${days} days`);
-      await this.Trip.retrieveUpcomingActiveTrips(res, days, limit);
+      await this.Trip.retrieveUpcomingActiveTrips(
+        res,
+        days,
+        categoryId,
+        perPage,
+        page,
+        expand,
+        sort
+      );
     });
     // Get multiple trips with pagination by name
     router.get("/app/trip/search", async (req, res) => {

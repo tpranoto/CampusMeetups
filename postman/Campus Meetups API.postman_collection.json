@@ -61,7 +61,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip?perPage=5&page=4",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip?categoryId=a3f9b8c5e90b5d6f8e4a0f8f4e2c5f8a&perPage=5&expand=true&page=0",
 							"protocol": "{{PRTCL}}",
 							"host": [
 								"{{HOST}}"
@@ -74,21 +74,19 @@
 							"query": [
 								{
 									"key": "categoryId",
-									"value": "a3f9b8c5e90b5d6f8e4a0f8f4e2c5f8a",
-									"disabled": true
+									"value": "a3f9b8c5e90b5d6f8e4a0f8f4e2c5f8a"
 								},
 								{
 									"key": "perPage",
 									"value": "5"
 								},
 								{
-									"key": "page",
-									"value": "4"
+									"key": "expand",
+									"value": "true"
 								},
 								{
-									"key": "expand",
-									"value": "true",
-									"disabled": true
+									"key": "page",
+									"value": "0"
 								}
 							]
 						}
@@ -148,7 +146,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/upcoming?days=1&limit=1",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/upcoming?days=7&perPage=5&expand=true&sort=desc",
 							"protocol": "{{PRTCL}}",
 							"host": [
 								"{{HOST}}"
@@ -162,11 +160,31 @@
 							"query": [
 								{
 									"key": "days",
-									"value": "1"
+									"value": "7"
 								},
 								{
-									"key": "limit",
-									"value": "1"
+									"key": "perPage",
+									"value": "5",
+									"description": "this is the \"limit\""
+								},
+								{
+									"key": "page",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "expand",
+									"value": "true"
+								},
+								{
+									"key": "categoryId",
+									"value": "a3f9b8c5e90b5d6f8e4a0f8f4e2c5f8a",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "desc",
+									"description": "asc / desc for the timestamp"
 								}
 							]
 						}
@@ -473,7 +491,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/attendee/:studentId?limit=1",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/attendee/:studentId?limit=5",
 							"protocol": "{{PRTCL}}",
 							"host": [
 								"{{HOST}}"
@@ -487,7 +505,7 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "1"
+									"value": "5"
 								}
 							],
 							"variable": [

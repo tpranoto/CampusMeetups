@@ -92,6 +92,7 @@ class AttendeeModel {
             lname: 1,
             tripData: {
               name: "$trip.name",
+              description: "$trip.description",
               image: "$trip.image",
               status: "$trip.status",
               location: "$trip.location",
