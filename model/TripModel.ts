@@ -220,14 +220,19 @@ class TripModel {
     }
   }
 
-  public async retrieveAllActiveTrips(
+  public async retrieveAllTrips(
     response: any,
+    searchedName: string,
     catId: string,
     perPage: number,
     page: number,
     expand: boolean
   ): Promise<any> {
-    var filter = { status: "Ongoing" };
+    var filter: { [key: string]: any } = { status: "Ongoing" };
+    if (searchedName != null) {
+      filter = { name: { $regex: searchedName, $options: "i" } };
+    }
+
     if (expand) {
       return this.retrieveExpandedAllTrips(
         response,

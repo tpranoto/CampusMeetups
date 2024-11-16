@@ -157,6 +157,7 @@ class App {
     router.get("/app/trip", async (req, res) => {
       try {
         var query: any = req.query;
+        var name = query.name;
         var categoryId = query.categoryId;
         var perPage =
           query.perPage !== undefined ? parseInt(query.perPage) : 20;
@@ -179,8 +180,9 @@ class App {
         return;
       }
       console.log("Query multiple trips");
-      await this.Trip.retrieveAllActiveTrips(
+      await this.Trip.retrieveAllTrips(
         res,
+        name,
         categoryId,
         perPage,
         page,
