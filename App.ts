@@ -107,46 +107,6 @@ class App {
         sort
       );
     });
-    // Get multiple trips with pagination by name
-    router.get("/app/trip/search", async (req, res) => {
-      try {
-        var query: any = req.query;
-        var categoryId = query.categoryId;
-        var name = query.name;
-        if (name === undefined) {
-          res.status(400).json({ error: "name must be provided" });
-          return;
-        }
-        var perPage =
-          query.perPage !== undefined ? parseInt(query.perPage) : 20;
-        if (isNaN(perPage) || perPage <= 0) {
-          res.status(400).json({ error: "perPage must be a positive integer" });
-          return;
-        }
-        var page = query.page !== undefined ? parseInt(query.page) : 0;
-        if (isNaN(page) || page < 0) {
-          res.status(400).json({ error: "page must be 0 or larger" });
-          return;
-        }
-
-        var expand =
-          query.expand !== undefined
-            ? JSON.parse(query.expand.toLowerCase())
-            : false;
-      } catch (e) {
-        res.status(400).json({ error: "bad query params" });
-        return;
-      }
-      console.log(`Query multiple trips by name ${name}`);
-      await this.Trip.retrieveAllTripsWithName(
-        res,
-        name,
-        categoryId,
-        perPage,
-        page,
-        expand
-      );
-    });
     // Get specific trip details by tripId
     router.get("/app/trip/:tripId", async (req, res) => {
       var tripId = req.params.tripId;
@@ -271,12 +231,26 @@ class App {
       }
     });
     // Get a student with studentId
-    router.get("/app/student/:studentId", async (req, res) => {
+    router.get("/app/student/id/:studentId", async (req, res) => {
       const studentId = req.params.studentId;
       console.log(`Query single student with id: ${studentId}`);
       try {
         const studentDetails = await this.Student.retrieveStudentDetails({
           studentId: studentId,
+        });
+        res.json(studentDetails);
+      } catch (e) {
+        console.error(e);
+        res.json({ error: "Error fetching student details." }).status(500);
+      }
+    });
+    // Get a student with email
+    router.get("/app/student/email/:email", async (req, res) => {
+      const email = req.params.email;
+      console.log(`Query single student with email: ${email}`);
+      try {
+        const studentDetails = await this.Student.retrieveStudentDetails({
+          email: email,
         });
         res.json(studentDetails);
       } catch (e) {

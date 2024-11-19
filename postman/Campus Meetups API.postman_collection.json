@@ -94,53 +94,6 @@
 					"response": []
 				},
 				{
-					"name": "Get searched trips",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/search?name=Wild",
-							"protocol": "{{PRTCL}}",
-							"host": [
-								"{{HOST}}"
-							],
-							"port": "{{PORT}}",
-							"path": [
-								"app",
-								"trip",
-								"search"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "Wild"
-								},
-								{
-									"key": "perPage",
-									"value": "5",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "4",
-									"disabled": true
-								},
-								{
-									"key": "expand",
-									"value": "true",
-									"disabled": true
-								},
-								{
-									"key": "categoryId",
-									"value": "a3f9b8c5e90b5d6f8e4a0f8f4e2c5f8a",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get upcoming trips",
 					"request": {
 						"method": "GET",
@@ -373,12 +326,12 @@
 					"response": []
 				},
 				{
-					"name": "Get a student",
+					"name": "Get a student by id",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/student/:studentId",
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/student/id/:studentId",
 							"protocol": "{{PRTCL}}",
 							"host": [
 								"{{HOST}}"
@@ -387,12 +340,41 @@
 							"path": [
 								"app",
 								"student",
+								"id",
 								":studentId"
 							],
 							"variable": [
 								{
 									"key": "studentId",
 									"value": "2b8f3c2a1d6e9c4f3b5a0e8c1d7b3a9e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a student by email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/student/email/:email",
+							"protocol": "{{PRTCL}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"app",
+								"student",
+								"email",
+								":email"
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": "liamsmith@seattleu.edu"
 								}
 							]
 						}

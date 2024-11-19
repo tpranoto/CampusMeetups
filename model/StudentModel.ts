@@ -24,8 +24,10 @@ class StudentModel {
         lname: String,
         email: {
           type: String,
+          unique: true,
           required: true,
         },
+        image: String,
         phoneNumber: String,
         verified: {
           type: Boolean,

@@ -46,6 +46,7 @@ StudentsCollection.insertMany([
         "fname": "Liam",
         "lname": "Smith",
         "email": "liamsmith@seattleu.edu",
+        "image": "https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1731994506~exp=1731998106~hmac=69711054c08fac7405157edce987fd879c8269acdef5523b7507189d1ebbd650&w=1060",
         "phoneNumber": "234-567-8901",
         "verified": "true",
         "status": "Active"
@@ -55,6 +56,7 @@ StudentsCollection.insertMany([
         "fname": "Olivia",
         "lname": "Johnson",
         "email": "oliviajohnson@seattleu.edu",
+        "image": "",
         "phoneNumber": "345-678-9012",
         "verified": "true",
         "status": "Active"
@@ -64,6 +66,7 @@ StudentsCollection.insertMany([
         "fname": "Noah",
         "lname": "Brown",
         "email": "noahbrown@seattleu.edu",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-pickle-cartoon-illustration_52683-130462.jpg?t=st=1732008534~exp=1732012134~hmac=653573515e8d22d006b78daeebd007a301ed31455097d4bbd0a50a4f55187847&w=1060",
         "phoneNumber": "456-789-0123",
         "verified": "false",
         "status": "Inactive"
@@ -73,6 +76,7 @@ StudentsCollection.insertMany([
         "fname": "Emma",
         "lname": "Davis",
         "email": "emmadavis@seattleu.edu",
+        "image": "https://img.freepik.com/free-vector/cute-koala-eating-ramen-noodle-cartoon-vector-icon-illustration-animal-food-icon-concept-isolated_138676-9816.jpg?t=st=1732008650~exp=1732012250~hmac=ed62c0414377cba85397ce203c304856f3d56ee5a0a8e409c2c232d757900feb&w=1060",
         "phoneNumber": "567-890-1234",
         "verified": "true",
         "status": "Active"
@@ -82,6 +86,7 @@ StudentsCollection.insertMany([
         "fname": "Ava",
         "lname": "Garcia",
         "email": "avagarcia@seattleu.edu",
+        "image": "",
         "phoneNumber": "678-901-2345",
         "verified": "true",
         "status": "Active"
@@ -91,6 +96,7 @@ StudentsCollection.insertMany([
         "fname": "James",
         "lname": "Martinez",
         "email": "jamesmartinez@seattleu.edu",
+        "image": "https://img.freepik.com/free-vector/cute-fox-wearing-glasses-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated-flat_138676-8568.jpg?t=st=1732008671~exp=1732012271~hmac=53e4c38dcba42936314fbef3a0d5b208688e90e54e51dfa708b42353e2f359be&w=1060",
         "phoneNumber": "789-012-3456",
         "verified": "false",
         "status": "Inactive"
@@ -100,6 +106,7 @@ StudentsCollection.insertMany([
         "fname": "Sophia",
         "lname": "Hernandez",
         "email": "sophiahernandez@seattleu.edu",
+        "image": "https://img.freepik.com/free-vector/cute-yeti-standing-cartoon-vector-icon-illustration-animal-nature-icon-isolated-flat-vector_138676-11432.jpg?t=st=1732008690~exp=1732012290~hmac=485afd9cd4a1d07ad2f937d9d02c472ebebaeddc3ca7164bbc68a4bad85728b1&w=1060",
         "phoneNumber": "890-123-4567",
         "verified": "true",
         "status": "Active"
@@ -109,6 +116,7 @@ StudentsCollection.insertMany([
         "fname": "Jackson",
         "lname": "Lopez",
         "email": "jacksonlopez@seattleu.edu",
+        "image": "",
         "phoneNumber": "901-234-5678",
         "verified": "true",
         "status": "Active"
@@ -118,6 +126,7 @@ StudentsCollection.insertMany([
         "fname": "Isabella",
         "lname": "Wilson",
         "email": "isabellawilson@seattleu.edu",
+        "image": "https://img.freepik.com/free-vector/cute-chicken-fever-cartoon-vector-icon-illustration-animal-medical-icon-isolated-flat-vector_138676-11504.jpg?t=st=1732008713~exp=1732012313~hmac=1b19ac0548368f6437b36ce2d8cd99f1f1d4305bedd32e9b72aa26a83d6d4cf9&w=1060",
         "phoneNumber": "012-345-6789",
         "verified": "false",
         "status": "Inactive"
@@ -127,6 +136,7 @@ StudentsCollection.insertMany([
         "fname": "Lucas",
         "lname": "Anderson",
         "email": "lucasanderson@seattleu.edu",
+        "image": "",
         "phoneNumber": "123-456-7891",
         "verified": "true",
         "status": "Active"

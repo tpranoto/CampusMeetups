@@ -188,38 +188,6 @@ class TripModel {
     }
   }
 
-  public async retrieveAllTripsWithName(
-    response: any,
-    searchedName: string,
-    catId: string,
-    perPage: number,
-    page: number,
-    expand: boolean
-  ): Promise<any> {
-    var filter = { name: { $regex: searchedName, $options: "i" } };
-    if (expand) {
-      return this.retrieveExpandedAllTrips(
-        response,
-        filter,
-        catId,
-        perPage,
-        page,
-        expand,
-        ""
-      );
-    } else {
-      return this.retrieveSimpleAllTrips(
-        response,
-        filter,
-        catId,
-        perPage,
-        page,
-        expand,
-        ""
-      );
-    }
-  }
-
   public async retrieveAllTrips(
     response: any,
     searchedName: string,
