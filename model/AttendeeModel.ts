@@ -77,7 +77,7 @@ class AttendeeModel {
             lname: 1,
             studentData: {
               studentId: "$student.studentId",
-              fname: "$student,fname",
+              fname: "$student.fname",
               lname: "$student.lname",
               image: "$student.image",
             },
