@@ -53,7 +53,37 @@ class AttendeeModel {
   // Retrieve the Attendees of a trip  using tripId
   public async retrieveAllAttendees(tripId: string): Promise<any> {
     try {
-      const query = this.model.find({ tripId: tripId }).select("-_id -__v");
+      const query = this.model.aggregate([
+        {
+          $match: { tripId: tripId },
+        },
+        {
+          $lookup: {
+            from: "Student",
+            localField: "studentId",
+            foreignField: "studentId",
+            as: "student",
+          },
+        },
+        {
+          $unwind: "$student",
+        },
+        {
+          $project: {
+            _id: 0,
+            studentId: 1,
+            tripId: 1,
+            fname: 1,
+            lname: 1,
+            studentData: {
+              studentId: "$student.studentId",
+              fname: "$student,fname",
+              lname: "$student.lname",
+              image: "$student.image",
+            },
+          },
+        },
+      ]);
       const students = await query.exec();
       return students;
     } catch (e) {
@@ -84,6 +114,17 @@ class AttendeeModel {
           $unwind: "$trip",
         },
         {
+          $lookup: {
+            from: "Category",
+            localField: "trip.categoryId",
+            foreignField: "categoryId",
+            as: "category",
+          },
+        },
+        {
+          $unwind: "$category",
+        },
+        {
           $project: {
             _id: 0,
             studentId: 1,
@@ -91,12 +132,17 @@ class AttendeeModel {
             fname: 1,
             lname: 1,
             tripData: {
+              tripId: "$trip.tripId",
               name: "$trip.name",
               description: "$trip.description",
               image: "$trip.image",
               status: "$trip.status",
               location: "$trip.location",
               timestamp: "$trip.timestamp",
+              categoryId: "$trip.categoryId",
+              categoryData: {
+                name: "$category.name",
+              },
             },
           },
         },
