@@ -103,6 +103,7 @@ class TripModel {
       {
         $unwind: {
           path: "$student",
+          preserveNullAndEmptyArrays: true,
         },
       },
       {
