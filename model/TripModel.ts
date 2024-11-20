@@ -95,6 +95,19 @@ class TripModel {
       {
         $lookup: {
           from: "Student",
+          localField: "attendee.studentId",
+          foreignField: "studentId",
+          as: "student",
+        },
+      },
+      {
+        $unwind: {
+          path: "$student",
+        },
+      },
+      {
+        $lookup: {
+          from: "Student",
           localField: "organizerId",
           foreignField: "studentId",
           as: "organizer",
@@ -128,6 +141,7 @@ class TripModel {
               organizerId: "$organizer.studentId",
               fname: "$organizer.fname",
               lname: "$organizer.lname",
+              image: "$organizer.image",
             },
             category: {
               categoryId: "$category.categoryId",
@@ -137,8 +151,9 @@ class TripModel {
           attendees: {
             $push: {
               studentId: "$attendee.studentId",
-              fname: "$attendee.fname",
-              lname: "$attendee.lname",
+              fname: "$student.fname",
+              lname: "$student.lname",
+              image: "$student.image",
             },
           },
         },
@@ -157,6 +172,7 @@ class TripModel {
           organizerData: {
             fname: "$_id.organizer.fname",
             lname: "$_id.organizer.lname",
+            image: "$_id.organizer.image",
           },
           categoryId: "$_id.category.categoryId",
           categoryData: {

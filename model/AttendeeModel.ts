@@ -24,8 +24,6 @@ class AttendeeModel {
           type: String,
           required: true,
         },
-        fname: String,
-        lname: String,
       },
       { collection: "Attendee" }
     );
@@ -73,8 +71,6 @@ class AttendeeModel {
             _id: 0,
             studentId: 1,
             tripId: 1,
-            fname: 1,
-            lname: 1,
             studentData: {
               studentId: "$student.studentId",
               fname: "$student.fname",
@@ -129,8 +125,6 @@ class AttendeeModel {
             _id: 0,
             studentId: 1,
             tripId: 1,
-            fname: 1,
-            lname: 1,
             tripData: {
               tripId: "$trip.tripId",
               name: "$trip.name",
