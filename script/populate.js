@@ -554,50 +554,34 @@ AttendeesCollection.deleteMany({});
 AttendeesCollection.insertMany([
     {
         "studentId": studentIds[1],
-        "fname": "Olivia",
-        "lname": "Johnson",
         "tripId":tripIds[0]
     },
     {
         "studentId": studentIds[2],
-        "fname": "Noah",
-        "lname": "Brown",
         "tripId":tripIds[0]
     },
     {
         "studentId": studentIds[3],
-        "fname": "Emma",
-        "lname": "Davis",
         "tripId":tripIds[0]
     },
     {
         "studentId": studentIds[0],
-        "fname": "Liam",
-        "lname": "Smith",
         "tripId":tripIds[2]
     },
     {
         "studentId": studentIds[7],
-        "fname": "Jackson",
-        "lname": "Lopez",
         "tripId":tripIds[2]
     },
     {
         "studentId": studentIds[5],
-        "fname": "James",
-        "lname": "Martinez",
         "tripId":tripIds[2]
     },
     {
         "studentId": studentIds[0],
-        "fname": "Liam",
-        "lname": "Smith",
         "tripId":tripIds[10]
     },
     {
         "studentId": studentIds[1],
-        "fname": "Olivia",
-        "lname": "Johnson",
         "tripId":tripIds[20]
     },
 ]);
