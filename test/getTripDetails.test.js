@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import chaiCfg from './getTrips.test.js';
+import chaiCfg from './getListOfTrips.test.js';
 
-describe('Test Trip Details result with some attendees', function () {
+describe('Test available trip details result with some attendees', function () {
 	var response;
 	var respBody;
 		 
@@ -16,6 +16,11 @@ describe('Test Trip Details result with some attendees', function () {
 				done();
 			});
         });
+
+    it('the trip status are correct', function () {
+        expect(response).to.have.status(200);
+        expect(respBody).to.have.property('status').to.be.oneOf(["Ongoing", "Completed", "Cancelled"]);
+    });
     
 	it('The body of response has known properties', function(){
 	    expect(respBody).to.have.property('tripId').that.is.a('string');
@@ -26,11 +31,35 @@ describe('Test Trip Details result with some attendees', function () {
         expect(respBody).to.have.property('location').that.is.a('string');
         expect(respBody).to.have.property('timestamp').that.is.a('string');
         expect(respBody).to.have.property('organizerId').that.is.a('string');
-        expect(respBody).to.have.property('organizerData').that.is.an('object').that.has.all.keys('fname','lname');
+        expect(respBody).to.have.property('organizerData').that.is.an('object').that.has.all.keys('fname','lname','image');
+        expect(respBody.organizerData).to.have.property('fname').that.is.a('string');
+        expect(respBody.organizerData).to.have.property('lname').that.is.a('string');
+        expect(respBody.organizerData).to.have.property('image').that.is.a('string');
         expect(respBody).to.have.property('categoryId').that.is.a('string');
         expect(respBody).to.have.property('categoryData').that.is.an('object').that.has.all.keys('name');
-		expect(respBody).to.have.property('attendees').that.is.an('array').to.have.length.above(0);
+        expect(respBody.categoryData).to.have.property('name').that.is.a('string');
+		expect(respBody).to.have.property('attendees').that.is.an('array');
 	});
+
+
+    it('The attendees array should be more than 2', function () {
+        expect(response).to.have.status(200);
+        expect(respBody).to.have.property('attendees').to.have.length.above(2);
+    });
+
+    it('The elements in the attendees array have known properties', function(){
+        expect(respBody.attendees).to.satisfy(
+            function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    expect(data[i]).to.have.property('studentId').that.is.a('string');
+                    expect(data[i]).to.have.property('fname').that.is.a('string');
+                    expect(data[i]).to.have.property('lname').that.is.a('string');
+                    expect(data[i]).to.have.property('image').that.is.a('string');
+                }
+                return true;
+            }
+        )
+    });
 });
 
 describe('Test Trip Details result with 0 attendees', function () {
@@ -48,6 +77,11 @@ describe('Test Trip Details result with 0 attendees', function () {
 				done();
 			});
         });
+
+    it('the trip status are correct', function () {
+        expect(response).to.have.status(200);
+        expect(respBody).to.have.property('status').to.be.oneOf(["Ongoing", "Completed", "Cancelled"]);
+    });
     
 	it('The body of response has known properties', function(){
 	    expect(respBody).to.have.property('tripId').that.is.a('string');
@@ -58,9 +92,18 @@ describe('Test Trip Details result with 0 attendees', function () {
         expect(respBody).to.have.property('location').that.is.a('string');
         expect(respBody).to.have.property('timestamp').that.is.a('string');
         expect(respBody).to.have.property('organizerId').that.is.a('string');
-        expect(respBody).to.have.property('organizerData').that.is.an('object').that.has.all.keys('fname','lname');
+        expect(respBody).to.have.property('organizerData').that.is.an('object').that.has.all.keys('fname','lname','image');
+        expect(respBody.organizerData).to.have.property('fname').that.is.a('string');
+        expect(respBody.organizerData).to.have.property('lname').that.is.a('string');
+        expect(respBody.organizerData).to.have.property('image').that.is.a('string');
         expect(respBody).to.have.property('categoryId').that.is.a('string');
         expect(respBody).to.have.property('categoryData').that.is.an('object').that.has.all.keys('name');
+        expect(respBody.categoryData).to.have.property('name').that.is.a('string');
 		expect(respBody).to.have.property('attendees').that.is.an('array').to.have.lengthOf(0);
 	});
+
+    it('The attendees array should be 0', function () {
+        expect(response).to.have.status(200);
+        expect(respBody).to.have.property('attendees').to.have.lengthOf(0);
+    });
 });
