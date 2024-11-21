@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import chaiCfg from './getListOfTrips.test.js';
+import chaiCfg from './chaiCfg.js';
 
 describe('Test available trip details result with some attendees', function () {
 	var response;

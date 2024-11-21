@@ -1,6 +1,6 @@
-import { use, expect } from 'chai';
-import chaiHttp from 'chai-http';
-const chaiCfg = use(chaiHttp);
+import { expect } from 'chai';
+import chaiCfg from './chaiCfg.js';
+
 
 describe('Test List of Trips result with default query param', function () {	
 	var response;
