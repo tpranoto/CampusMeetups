@@ -20,14 +20,16 @@ describe('Test List of Trips result with default query param', function () {
 
     it('Should return first page with page index 0 and perPage 20 as a default',function(){
         expect(response).to.have.status(200);
-        expect(respBody).to.have.property("page").equals(0);
-        expect(respBody).to.have.property("perPage").equals(20);
+        expect(respBody).to.have.property("page").that.equals(0);
+        expect(respBody).to.have.property("perPage").that.equals(20);
+		expect(respBody).to.have.property("nextPage").that.equals("http://localhost:8080/app/trip?page=1&perPage=20");
+		expect(respBody).to.have.property("prevPage").that.equals(null);
     });
     
     it('Should return data with an array object of 20 objects for 1st page', function (){
 		expect(response).to.have.status(200);
-		expect(response.body.data).to.have.length(20);
 		expect(response).to.have.headers;
+		expect(response.body.data).to.have.length(20);
     });
     
 	it('The body of response has known properties', function(){
@@ -80,12 +82,14 @@ describe('Test List of expanded Trips result with default pagination', function 
 		expect(response).to.have.status(200);
 		expect(respBody).to.have.property("page").equals(0);
 		expect(respBody).to.have.property("perPage").equals(20);
+		expect(respBody).to.have.property("nextPage").that.equals("http://localhost:8080/app/trip?page=1&perPage=20&expand=true");
+		expect(respBody).to.have.property("prevPage").that.equals(null);
 	});
 	
 	it('Should return data with an array object of 20 objects for 1st page', function (){
 		expect(response).to.have.status(200);
-		expect(response.body.data).to.have.length(20);
 		expect(response).to.have.headers;
+		expect(response.body.data).to.have.length(20);
 	});
 
 	it('The body of response has known properties', function(){
