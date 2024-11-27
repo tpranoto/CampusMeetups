@@ -27,8 +27,14 @@ class StudentModel {
           unique: true,
           required: true,
         },
-        image: String,
-        phoneNumber: String,
+        image: {
+          type: String,
+          default: "",
+        },
+        phoneNumber: {
+          type: String,
+          default: "",
+        },
         verified: {
           type: Boolean,
           default: false,
@@ -49,6 +55,25 @@ class StudentModel {
       this.model = Mongoose.model<IStudentModel>("Student", this.schema);
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  public async retrieveOrCreateStudent(studentObj: any): Promise<any> {
+    if (studentObj == null) {
+      return;
+    }
+    try {
+      const user = await this.model.findOneAndUpdate(
+        { studentId: studentObj.studentId },
+        {
+          $setOnInsert: studentObj,
+        },
+        { new: true, upsert: true }
+      );
+      return user;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error finding or creating new student.");
     }
   }
 

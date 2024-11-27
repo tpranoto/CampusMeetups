@@ -15,16 +15,23 @@
     "async": "^3.2.6",
     "chai": "^5.1.2",
     "chai-http": "^5.1.1",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "express-session": "^1.18.1",
     "mocha": "^10.8.2",
     "mongodb": "^6.10.0",
     "mongoose": "^8.7.2",
+    "passport": "^0.7.0",
+    "passport-microsoft": "^2.1.0",
     "q": "^2.0.3",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
     "@types/chai": "^5.0.1",
-    "@types/express": "^5.0.0"
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.0",
+    "@types/passport": "^1.0.17"
   }
 }
