@@ -191,6 +191,7 @@ class TripModel {
       var resultObj = result[0];
       // FIXME: correct empty object when empty attendees with proper solution
       if (
+        resultObj.attendee != null &&
         resultObj.attendees.length === 1 &&
         resultObj.attendees[0].studentId === undefined
       ) {
@@ -373,9 +374,14 @@ class TripModel {
     }
   }
 
-  public async updateTrip(response: any, tripId: string, tripObj: any) {
+  public async updateTrip(
+    response: any,
+    tripId: string,
+    studentId: string,
+    tripObj: any
+  ) {
     var query = this.model.findOneAndUpdate(
-      { tripId: tripId },
+      { tripId: tripId, organizerId: studentId },
       { $set: tripObj },
       { new: true }
     );
@@ -396,8 +402,11 @@ class TripModel {
     }
   }
 
-  public async deleteTrip(response: any, tripId: string) {
-    var query = this.model.deleteOne({ tripId: tripId });
+  public async deleteTrip(response: any, tripId: string, studentId: string) {
+    var query = this.model.deleteOne({
+      tripId: tripId,
+      organizerId: studentId,
+    });
     try {
       await query.exec();
       response.json({ message: "OK" });

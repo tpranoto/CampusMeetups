@@ -222,15 +222,19 @@ class App {
     router.patch("/app/trip/:tripId", this.validateAuth, async (req, res) => {
       var tripId = req.params.tripId;
       var jsonObj = req.body;
+      var userDt: any = req.user;
+      var studentId: string = userDt.studentId;
       console.log(`Update trip ${tripId} with: ${JSON.stringify(jsonObj)}`);
-      await this.Trip.updateTrip(res, tripId, jsonObj);
+      await this.Trip.updateTrip(res, tripId, studentId, jsonObj);
     });
     // Delete a trip with tripId
     router.delete("/app/trip/:tripId", this.validateAuth, async (req, res) => {
       var tripId = req.params.tripId;
+      var userDt: any = req.user;
+      var studentId: string = userDt.studentId;
       console.log(`Delete trip ${tripId}`);
       await this.Attendee.deleteAttendeesFromTrips(tripId);
-      await this.Trip.deleteTrip(res, tripId);
+      await this.Trip.deleteTrip(res, tripId, studentId);
     });
 
     ///////CATEGORY///////
@@ -345,7 +349,12 @@ class App {
     );
     // Update a student details with studentId
     router.put("/app/student/:id", this.validateAuth, async (req, res) => {
+      var userDt: any = req.user;
+      var sesStudentId: string = userDt.studentId;
       const studentId = req.params.id;
+      if (sesStudentId != studentId) {
+        res.json({ error: "cant update other students info" });
+      }
       const updateData = req.body;
       try {
         const responseMessage = await this.Student.updateStudentDetails(
@@ -363,7 +372,12 @@ class App {
       "/app/student/:studentId",
       this.validateAuth,
       async (req, res) => {
+        var userDt: any = req.user;
+        var sesStudentId: string = userDt.studentId;
         const studentId = req.params.studentId;
+        if (sesStudentId != studentId) {
+          res.json({ error: "cant delete other students info" });
+        }
         try {
           const tripsDeleted = await this.Attendee.deleteAttendedTrips(
             studentId

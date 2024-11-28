@@ -475,7 +475,6 @@ if (!db.getCollectionNames().includes("Report")) {
 const ReportsCollection = db.getCollection("Report");
 ReportsCollection.deleteMany({});
 ReportsCollection.insertMany([
-
     {
         "reportId": "b5a6d3e8c1f4e2b7a0f5d9c3e1b7f2a",
         "reason": "Spam messages",
