@@ -402,7 +402,7 @@ class App {
         res.json(result);
       } catch (e) {
         console.error(e);
-        res.json({ error: "Error creating student." }).status(500);
+        res.json({ error: "Error reporting student." }).status(500);
       }
     });
     // Get all reports
