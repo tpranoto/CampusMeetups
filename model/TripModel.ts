@@ -185,8 +185,8 @@ class TripModel {
     ]);
     try {
       const result = await query.exec();
-      if (result.length == 0) {
-        response.json({});
+      if (result.length === 0) {
+        return response.json({});
       }
       var resultObj = result[0];
       // FIXME: correct empty object when empty attendees with proper solution
