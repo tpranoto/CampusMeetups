@@ -206,6 +206,72 @@ class TripModel {
     }
   }
 
+  public async retrieveTripsOrganizedById(
+    response: any,
+    studentId: string,
+    limit: number | null
+  ) {
+    var query = this.model.aggregate([
+      {
+        $match: { organizerId: studentId, status: "Ongoing" },
+      },
+      {
+        $lookup: {
+          from: "Student",
+          localField: "organizerId",
+          foreignField: "studentId",
+          as: "organizer",
+        },
+      },
+      {
+        $unwind: "$organizer",
+      },
+      {
+        $lookup: {
+          from: "Category",
+          localField: "categoryId",
+          foreignField: "categoryId",
+          as: "category",
+        },
+      },
+      {
+        $unwind: "$category",
+      },
+      {
+        $project: {
+          _id: 0,
+          tripId: 1,
+          name: 1,
+          description: 1,
+          status: 1,
+          image: 1,
+          location: 1,
+          timestamp: 1,
+          organizerId: 1,
+          organizerData: {
+            fname: "$organizer.fname",
+            lname: "$organizer.lname",
+          },
+          categoryId: 1,
+          categoryData: {
+            name: "$category.name",
+          },
+        },
+      },
+    ]);
+    if (limit != null) {
+      query.limit(limit);
+    }
+    try {
+      const itemArray = await query.exec();
+      response.json(itemArray);
+    } catch (e) {
+      console.error(e);
+      var msg = `failed to retrieve trips organized by ${studentId}`;
+      response.status(500).json({ error: msg });
+    }
+  }
+
   public async retrieveAllTrips(
     response: any,
     searchedName: string,

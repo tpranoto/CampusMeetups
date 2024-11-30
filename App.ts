@@ -182,6 +182,26 @@ class App {
       console.log(`Retrieve trip ${tripId}`);
       await this.Trip.retrieveTrip(res, tripId);
     });
+    router.get(
+      "/app/trip/organized/:studentId",
+      this.validateAuth,
+      async (req, res) => {
+        var studentId = req.params.studentId;
+        try {
+          var query: any = req.query;
+          var limit = query.limit !== undefined ? parseInt(query.limit) : null;
+          if (limit !== null && limit <= 0) {
+            res.status(400).json({ error: "limit must be a positive integer" });
+            return;
+          }
+        } catch (e) {
+          res.status(400).json({ error: "bad query params" });
+          return;
+        }
+        console.log(`Retrieve trip organized by ${studentId}`);
+        await this.Trip.retrieveTripsOrganizedById(res, studentId, limit);
+      }
+    );
     // Get multiple trips with pagination
     router.get("/app/trip", this.validateAuth, async (req, res) => {
       try {
