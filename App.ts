@@ -418,6 +418,8 @@ class App {
     // Create new report
     router.post("/app/report", this.validateAuth, async (req, res) => {
       var jsonObj = req.body;
+      var userDt: any = req.user;
+      jsonObj.reporterId = userDt.studentId;
       console.log(jsonObj);
       try {
         const result = await this.Report.createReport(jsonObj);
