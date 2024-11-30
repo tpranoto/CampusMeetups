@@ -49,7 +49,9 @@ StudentsCollection.insertMany([
         "image": "https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?t=st=1731994506~exp=1731998106~hmac=69711054c08fac7405157edce987fd879c8269acdef5523b7507189d1ebbd650&w=1060",
         "phoneNumber": "234-567-8901",
         "verified": true,
-        "status": "Active"
+        "status": "Active",
+        "joined": getUpcomingDate(-30),
+        "bio": "Hi, I'm Liam! I'm a freshman here at Seattle U, majoring in Computer Science. I love coding, gaming, and exploring new tech. Always up for a good challenge!"
     },
     {
         "studentId": "c1e4f7b8d0c9a5e1b2f6a8e3d4c5b0f7",
@@ -59,7 +61,9 @@ StudentsCollection.insertMany([
         "image": "",
         "phoneNumber": "345-678-9012",
         "verified": true,
-        "status": "Active"
+        "status": "Active",
+        "joined": getUpcomingDate(-48),
+        "bio": "I'm Olivia, a Psychology major. I enjoy learning about human behavior and am passionate about mental health awareness. In my free time, I love reading, hiking, and volunteering."
     },
     {
         "studentId": "e3a7d1f9c2b5e6d4f8a1b3c0e7c2d9e5",
@@ -69,7 +73,9 @@ StudentsCollection.insertMany([
         "image": "https://img.freepik.com/free-vector/hand-drawn-pickle-cartoon-illustration_52683-130462.jpg?t=st=1732008534~exp=1732012134~hmac=653573515e8d22d006b78daeebd007a301ed31455097d4bbd0a50a4f55187847&w=1060",
         "phoneNumber": "456-789-0123",
         "verified": false,
-        "status": "Inactive"
+        "status": "Inactive",
+        "joined": getUpcomingDate(-92),
+        "bio": "Hey, I’m Noah! I’m passionate about environmental science and sustainability. I'm actively involved in eco-friendly projects and enjoy playing soccer and cooking healthy meals."
     },
     {
         "studentId": "4b8c3f1e6d0a5b2c9e7d4f0e1c8b3d7a",
@@ -79,7 +85,9 @@ StudentsCollection.insertMany([
         "image": "https://img.freepik.com/free-vector/cute-koala-eating-ramen-noodle-cartoon-vector-icon-illustration-animal-food-icon-concept-isolated_138676-9816.jpg?t=st=1732008650~exp=1732012250~hmac=ed62c0414377cba85397ce203c304856f3d56ee5a0a8e409c2c232d757900feb&w=1060",
         "phoneNumber": "567-890-1234",
         "verified": true,
-        "status": "Active"
+        "status": "Active",
+        "joined": getUpcomingDate(-43),
+        "bio": "I'm Emma, an Art History major. I have a passion for exploring museums and learning about different cultures. When I'm not studying, I enjoy photography and trying out new recipes."
     },
     {
         "studentId": "9e1a4c5b2d8f3a7e6c0b1d9f8e4a2c3b",
@@ -89,7 +97,9 @@ StudentsCollection.insertMany([
         "image": "",
         "phoneNumber": "678-901-2345",
         "verified": true,
-        "status": "Active"
+        "status": "Active",
+        "joined": getUpcomingDate(-12),
+        "bio": "Hi, I’m Ava! I’m majoring in Biology with a focus on marine life. I love spending time at the beach, and I’m passionate about ocean conservation and scuba diving."
     },
     {
         "studentId": "5c2e8d1b4f0e3a6d9b7a5f4c3e2b1a7d",
@@ -99,7 +109,9 @@ StudentsCollection.insertMany([
         "image": "https://img.freepik.com/free-vector/cute-fox-wearing-glasses-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated-flat_138676-8568.jpg?t=st=1732008671~exp=1732012271~hmac=53e4c38dcba42936314fbef3a0d5b208688e90e54e51dfa708b42353e2f359be&w=1060",
         "phoneNumber": "789-012-3456",
         "verified": false,
-        "status": "Inactive"
+        "status": "Inactive",
+        "joined": getUpcomingDate(-62),
+        "bio": "I’m James, a Computer Science major with a focus on Artificial Intelligence. I enjoy coding, problem-solving, and playing strategy games. I also love hiking and photography!"
     },
     {
         "studentId": "f0a3e9b5c2d1a8f6e4b7d0c2a3e9f1b4",
@@ -109,7 +121,9 @@ StudentsCollection.insertMany([
         "image": "https://img.freepik.com/free-vector/cute-yeti-standing-cartoon-vector-icon-illustration-animal-nature-icon-isolated-flat-vector_138676-11432.jpg?t=st=1732008690~exp=1732012290~hmac=485afd9cd4a1d07ad2f937d9d02c472ebebaeddc3ca7164bbc68a4bad85728b1&w=1060",
         "phoneNumber": "890-123-4567",
         "verified": true,
-        "status": "Active"
+        "status": "Active",
+        "joined": getUpcomingDate(-18),
+        "bio": "Hello, I’m Sophia! I’m a Psychology major interested in social behavior and mental health research. I love playing piano, reading psychology journals, and spending time with friends."
     },
     {
         "studentId": "3f7c1a2e4b5d6e9f8a0b3d1c5e4f2b8e",
@@ -119,7 +133,9 @@ StudentsCollection.insertMany([
         "image": "",
         "phoneNumber": "901-234-5678",
         "verified": true,
-        "status": "Active"
+        "status": "Active",
+        "joined": getUpcomingDate(-34),
+        "bio": "I’m Jackson, a Business major with a focus on marketing. I'm all about entrepreneurship, and I’m always looking for new ways to innovate. Outside of school, I enjoy playing basketball and running."
     },
     {
         "studentId": "b4d9e5c1f7a2b3e8c0a6d4f2e1c5b7a8",
@@ -129,7 +145,9 @@ StudentsCollection.insertMany([
         "image": "https://img.freepik.com/free-vector/cute-chicken-fever-cartoon-vector-icon-illustration-animal-medical-icon-isolated-flat-vector_138676-11504.jpg?t=st=1732008713~exp=1732012313~hmac=1b19ac0548368f6437b36ce2d8cd99f1f1d4305bedd32e9b72aa26a83d6d4cf9&w=1060",
         "phoneNumber": "012-345-6789",
         "verified": false,
-        "status": "Inactive"
+        "status": "Inactive",
+        "joined": getUpcomingDate(-79),
+        "bio": "Hi, I'm Isabella! I’m studying Nursing and am passionate about helping others. I enjoy working in community health and love volunteering. In my free time, I love to cook and listen to music."
     },
     {
         "studentId": "e6b4c2f8d1e3a5b9f0c7d1a4e6c8b2d7",
@@ -139,8 +157,10 @@ StudentsCollection.insertMany([
         "image": "",
         "phoneNumber": "123-456-7891",
         "verified": true,
-        "status": "Active"
-    }
+        "status": "Active",
+        "joined": getUpcomingDate(-2),
+        "bio": "I'm Lucas, a Mechanical Engineering major. I enjoy solving complex problems and building things. Outside of school, I love mountain biking and traveling to new places."
+    }    
 ]);
 
 studentIds = [ 
