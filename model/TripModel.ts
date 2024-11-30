@@ -209,6 +209,7 @@ class TripModel {
   public async retrieveAllTrips(
     response: any,
     searchedName: string,
+    organizerId: string,
     catId: string,
     perPage: number,
     page: number,
@@ -217,6 +218,10 @@ class TripModel {
     var filter: { [key: string]: any } = { status: "Ongoing" };
     if (searchedName != null) {
       filter = { name: { $regex: searchedName, $options: "i" } };
+    }
+
+    if (organizerId != null) {
+      filter = { organizerId: organizerId };
     }
 
     if (expand) {

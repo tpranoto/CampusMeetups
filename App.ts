@@ -188,6 +188,7 @@ class App {
         var query: any = req.query;
         var name = query.name;
         var categoryId = query.categoryId;
+        var organizerId = query.organizerId;
         var perPage =
           query.perPage !== undefined ? parseInt(query.perPage) : 20;
         if (isNaN(perPage) || perPage <= 0) {
@@ -212,6 +213,7 @@ class App {
       await this.Trip.retrieveAllTrips(
         res,
         name,
+        organizerId,
         categoryId,
         perPage,
         page,

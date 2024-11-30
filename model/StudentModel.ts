@@ -27,6 +27,10 @@ class StudentModel {
           unique: true,
           required: true,
         },
+        bio: {
+          type: String,
+          default: "",
+        },
         image: {
           type: String,
           default: "",
@@ -43,6 +47,10 @@ class StudentModel {
           type: String,
           enum: ["Active", "Inactive", "Banned"],
           default: "Active",
+        },
+        joined: {
+          type: Date,
+          default: new Date(),
         },
       },
       { collection: "Student" }
