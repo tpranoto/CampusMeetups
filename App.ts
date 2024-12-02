@@ -41,7 +41,10 @@ class App {
     this.expressApp.use(bodyParser.urlencoded({ extended: true }));
     this.expressApp.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+      res.header(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PATCH, PUT, DELETE"
+      );
       res.header("Access-Control-Allow-Credentials", "true");
       res.header(
         "Access-Control-Allow-Headers",
@@ -119,9 +122,15 @@ class App {
 
     // Create new trip
     router.post("/app/trip", this.validateAuth, async (req, res) => {
-      var jsonObj = req.body;
-      var userDt: any = req.user;
-      jsonObj.organizerId = userDt.studentId;
+      try {
+        var jsonObj = req.body;
+        var userDt: any = req.user;
+        jsonObj.organizerId = userDt.studentId;
+      } catch (e) {
+        res.status(500).json({ error: "error happened" });
+        return;
+      }
+
       console.log(`Create new trip with: ${JSON.stringify(req.body)}`);
       await this.Trip.createTrip(res, jsonObj);
     });
@@ -244,18 +253,28 @@ class App {
     });
     // Update a trip with tripId
     router.patch("/app/trip/:tripId", this.validateAuth, async (req, res) => {
-      var tripId = req.params.tripId;
-      var jsonObj = req.body;
-      var userDt: any = req.user;
-      var studentId: string = userDt.studentId;
+      try {
+        var tripId = req.params.tripId;
+        var jsonObj = req.body;
+        var userDt: any = req.user;
+        var studentId: string = userDt.studentId;
+      } catch (e) {
+        res.status(500).json({ error: "error happened" });
+        return;
+      }
       console.log(`Update trip ${tripId} with: ${JSON.stringify(jsonObj)}`);
       await this.Trip.updateTrip(res, tripId, studentId, jsonObj);
     });
     // Delete a trip with tripId
     router.delete("/app/trip/:tripId", this.validateAuth, async (req, res) => {
-      var tripId = req.params.tripId;
-      var userDt: any = req.user;
-      var studentId: string = userDt.studentId;
+      try {
+        var tripId = req.params.tripId;
+        var userDt: any = req.user;
+        var studentId: string = userDt.studentId;
+      } catch (e) {
+        res.status(500).json({ error: "error happened" });
+        return;
+      }
       console.log(`Delete trip ${tripId}`);
       await this.Attendee.deleteAttendeesFromTrips(tripId);
       await this.Trip.deleteTrip(res, tripId, studentId);
@@ -373,14 +392,15 @@ class App {
     );
     // Update a student details with studentId
     router.put("/app/student/:id", this.validateAuth, async (req, res) => {
-      var userDt: any = req.user;
-      var sesStudentId: string = userDt.studentId;
-      const studentId = req.params.id;
-      if (sesStudentId != studentId) {
-        res.json({ error: "cant update other students info" });
-      }
       const updateData = req.body;
       try {
+        var userDt: any = req.user;
+        var sesStudentId: string = userDt.studentId;
+        const studentId = req.params.id;
+        if (sesStudentId != studentId) {
+          res.json({ error: "cant update other students info" });
+        }
+
         const responseMessage = await this.Student.updateStudentDetails(
           studentId,
           updateData
@@ -396,13 +416,15 @@ class App {
       "/app/student/:studentId",
       this.validateAuth,
       async (req, res) => {
-        var userDt: any = req.user;
-        var sesStudentId: string = userDt.studentId;
         const studentId = req.params.studentId;
-        if (sesStudentId != studentId) {
-          res.json({ error: "cant delete other students info" });
-        }
+
         try {
+          var userDt: any = req.user;
+          var sesStudentId: string = userDt.studentId;
+          if (sesStudentId != studentId) {
+            res.json({ error: "cant delete other students info" });
+          }
+
           const tripsDeleted = await this.Attendee.deleteAttendedTrips(
             studentId
           );
@@ -420,10 +442,10 @@ class App {
     // Create new report
     router.post("/app/report", this.validateAuth, async (req, res) => {
       var jsonObj = req.body;
-      var userDt: any = req.user;
-      jsonObj.reporterId = userDt.studentId;
       console.log(jsonObj);
       try {
+        var userDt: any = req.user;
+        jsonObj.reporterId = userDt.studentId;
         const result = await this.Report.createReport(jsonObj);
         res.json(result);
       } catch (e) {
