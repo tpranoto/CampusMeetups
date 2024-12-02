@@ -191,7 +191,7 @@ class TripModel {
       var resultObj = result[0];
       // FIXME: correct empty object when empty attendees with proper solution
       if (
-        resultObj.attendee != null &&
+        resultObj.attendees != null &&
         resultObj.attendees.length === 1 &&
         resultObj.attendees[0].studentId === undefined
       ) {
