@@ -2,7 +2,7 @@
   "name": "campusmeetups",
   "version": "1.0.0",
   "description": "CampusMeetups is a web application designed to connect university students based on shared interests, travel plans, and availability.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
