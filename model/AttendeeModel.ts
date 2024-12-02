@@ -40,7 +40,18 @@ class AttendeeModel {
 
   // Create a new attendee similar to createTrip
   public async createAttendee(attendeeObj: any) {
+    var query = this.model.findOne({
+      tripId: attendeeObj.tripId,
+      studentId: attendeeObj.studentId,
+    });
+    query.select("-_id -__v");
     try {
+      const existingAttendee = await query.exec();
+
+      if (existingAttendee) {
+        return existingAttendee;
+      }
+
       await this.model.create([attendeeObj]); // Save the attendee to the database
       return attendeeObj; // Return the created attendee
     } catch (e) {

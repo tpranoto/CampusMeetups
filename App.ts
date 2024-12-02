@@ -120,6 +120,8 @@ class App {
     // Create new trip
     router.post("/app/trip", this.validateAuth, async (req, res) => {
       var jsonObj = req.body;
+      var userDt: any = req.user;
+      jsonObj.organizerId = userDt.studentId;
       console.log(`Create new trip with: ${JSON.stringify(req.body)}`);
       await this.Trip.createTrip(res, jsonObj);
     });

@@ -145,6 +145,40 @@
 					"response": []
 				},
 				{
+					"name": "Get organized trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PRTCL}}://{{HOST}}:{{PORT}}/app/trip/organized/:studentId?limit=1",
+							"protocol": "{{PRTCL}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"app",
+								"trip",
+								"organized",
+								":studentId"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"key": "studentId",
+									"value": "3f7c1a2e4b5d6e9f8a0b3d1c5e4f2b8e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update trip",
 					"request": {
 						"method": "PATCH",
@@ -456,7 +490,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"studentId\":\"8a4f944c993b11de0e989cdcb1a3a21f\",\n    \"tripId\":\"8b6153c3e6f7b5a8ed937bf88f361d06\",\n    \"fname\": \"James\",\n    \"lname\": \"Doe\"\n}",
+							"raw": "{\n    \"studentId\":\"8a4f944c993b11de0e989cdcb1a3a21f\",\n    \"tripId\":\"8b6153c3e6f7b5a8ed937bf88f361d06\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
