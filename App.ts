@@ -119,6 +119,16 @@ class App {
       });
     });
 
+    router.get("/app/session/user", (req, res) => {
+      if (req.user) {
+        res.json({ user: req.user });
+      } else {
+        res.clearCookie("user");
+        res.clearCookie("connect.sid");
+        res.json({ error: "user data not available" });
+      }
+    });
+
     ///////TRIP///////
 
     // Create new trip
