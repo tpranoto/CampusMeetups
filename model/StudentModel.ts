@@ -130,18 +130,18 @@ class StudentModel {
     studentId: string,
     updateData: any
   ): Promise<any> {
+    var query = this.model.findOneAndUpdate(
+      { studentId: studentId },
+      { $set: updateData },
+      { new: true }
+    );
+    query.select("-_id -__v");
     try {
-      const result = await this.model.updateOne(
-        { studentId: studentId },
-        { $set: updateData }
-      );
-      if (result.modifiedCount > 0) {
-        updateData.studentId = studentId;
-        return updateData;
-      } else if (result.matchedCount === 0) {
-        throw new Error("Student not found.");
+      const returnedObj = await query.exec();
+      if (returnedObj != null) {
+        return returnedObj;
       } else {
-        throw new Error("No changes made to the student data.");
+        throw new Error("Student not found");
       }
     } catch (e) {
       console.error(e);
