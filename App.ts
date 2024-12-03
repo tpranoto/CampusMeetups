@@ -52,6 +52,7 @@ class App {
       );
       next();
     });
+    this.expressApp.set("trust proxy", 1);
     this.expressApp.use(
       session({
         secret: "keyboard cat warrior",
@@ -607,7 +608,7 @@ class App {
 
     this.expressApp.use(
       "/",
-      express.static(__dirname + "/dist/campus-meetups/browser")
+      express.static(__dirname + "/angularDist/campus-meetups/browser")
     );
 
     this.expressApp.all("*", (req, res) => {
