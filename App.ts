@@ -149,6 +149,7 @@ class App {
     // Get upcoming trips by days
     router.get("/app/trip/upcoming", this.validateAuth, async (req, res) => {
       try {
+        var path = `${req.protocol}://${req.headers.host}${req.path}`;
         var query: any = req.query;
         var categoryId = query.categoryId;
         if (query.days === undefined) {
@@ -190,6 +191,7 @@ class App {
       console.log(`Retrieve upcoming Trips in ${days} days`);
       await this.Trip.retrieveUpcomingActiveTrips(
         res,
+        path,
         days,
         categoryId,
         perPage,
@@ -227,6 +229,7 @@ class App {
     // Get multiple trips with pagination
     router.get("/app/trip", this.validateAuth, async (req, res) => {
       try {
+        var path = `${req.protocol}://${req.headers.host}${req.path}`;
         var query: any = req.query;
         var name = query.name;
         var categoryId = query.categoryId;
@@ -254,6 +257,7 @@ class App {
       console.log("Query multiple trips");
       await this.Trip.retrieveAllTrips(
         res,
+        path,
         name,
         organizerId,
         categoryId,

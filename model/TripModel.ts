@@ -274,6 +274,7 @@ class TripModel {
 
   public async retrieveAllTrips(
     response: any,
+    path: string,
     searchedName: string,
     organizerId: string,
     catId: string,
@@ -293,6 +294,7 @@ class TripModel {
     if (expand) {
       return this.retrieveExpandedAllTrips(
         response,
+        path,
         filter,
         catId,
         perPage,
@@ -303,6 +305,7 @@ class TripModel {
     } else {
       return this.retrieveSimpleAllTrips(
         response,
+        path,
         filter,
         catId,
         perPage,
@@ -315,6 +318,7 @@ class TripModel {
 
   public async retrieveSimpleAllTrips(
     response: any,
+    path: string,
     baseFilter: Object,
     catId: string,
     perPage: number,
@@ -341,7 +345,14 @@ class TripModel {
     try {
       const itemArray = await query.exec();
       response.json(
-        this.contructAllTripsResponse(itemArray, catId, page, perPage, expand)
+        this.contructAllTripsResponse(
+          path,
+          itemArray,
+          catId,
+          page,
+          perPage,
+          expand
+        )
       );
     } catch (e) {
       console.error(e);
@@ -352,6 +363,7 @@ class TripModel {
 
   public async retrieveExpandedAllTrips(
     response: any,
+    path: string,
     baseFilter: Object,
     catId: string,
     perPage: number,
@@ -436,7 +448,14 @@ class TripModel {
     try {
       const itemArray = await query.exec();
       response.json(
-        this.contructAllTripsResponse(itemArray, catId, page, perPage, expand)
+        this.contructAllTripsResponse(
+          path,
+          itemArray,
+          catId,
+          page,
+          perPage,
+          expand
+        )
       );
     } catch (e) {
       console.error(e);
@@ -490,6 +509,7 @@ class TripModel {
 
   public async retrieveUpcomingActiveTrips(
     response: any,
+    path: string,
     days: number,
     catId: string,
     perPage: number,
@@ -509,6 +529,7 @@ class TripModel {
     if (expand) {
       return this.retrieveExpandedAllTrips(
         response,
+        path,
         filter,
         catId,
         perPage,
@@ -519,6 +540,7 @@ class TripModel {
     } else {
       return this.retrieveSimpleAllTrips(
         response,
+        path,
         filter,
         catId,
         perPage,
@@ -530,6 +552,7 @@ class TripModel {
   }
 
   private contructNextPageUrl(
+    path: string,
     dataLen: number,
     catId: string,
     page: number,
@@ -540,10 +563,11 @@ class TripModel {
       return null;
     }
 
-    return this.constructPageUrl(catId, page, perPage, expand);
+    return this.constructPageUrl(path, catId, page, perPage, expand);
   }
 
   private constructPrevPageUrl(
+    path: string,
     catId: string,
     page: number,
     perPage: number,
@@ -553,17 +577,17 @@ class TripModel {
       return null;
     }
 
-    return this.constructPageUrl(catId, page, perPage, expand);
+    return this.constructPageUrl(path, catId, page, perPage, expand);
   }
 
   private constructPageUrl(
+    path: string,
     catId: string,
     page: number,
     perPage: number,
     expand: boolean
   ): string | null {
-    var paginationUrl =
-      "http://localhost:8080/app/trip?page=" + page + "&perPage=" + perPage;
+    var paginationUrl = path + "?page=" + page + "&perPage=" + perPage;
 
     if (catId != null) {
       paginationUrl += "&categoryId=" + catId;
@@ -577,6 +601,7 @@ class TripModel {
   }
 
   private contructAllTripsResponse(
+    path: string,
     itemArray: Array<Object>,
     catId: string,
     page: number,
@@ -595,13 +620,20 @@ class TripModel {
       page: page,
       perPage: perPage,
       nextPage: this.contructNextPageUrl(
+        path,
         arrayLen,
         catId,
         nextPage,
         perPage,
         expand
       ),
-      prevPage: this.constructPrevPageUrl(catId, prevPage, perPage, expand),
+      prevPage: this.constructPrevPageUrl(
+        path,
+        catId,
+        prevPage,
+        perPage,
+        expand
+      ),
     };
   }
 }
