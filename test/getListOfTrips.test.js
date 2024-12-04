@@ -7,8 +7,8 @@ describe('Test List of Trips result with default query param', function () {
 	var respBody;
 		 
     before(function (done) {
-        chaiCfg.request.execute("http://localhost:8080")
-			.get("/app/trip")
+        chaiCfg.request.execute("https://campusmeetups.azurewebsites.net")
+			.get("/app/test/trip")
 			.end(function (err, res) {
 				response = res;
 				respBody = res.body;
@@ -22,7 +22,7 @@ describe('Test List of Trips result with default query param', function () {
         expect(response).to.have.status(200);
         expect(respBody).to.have.property("page").that.equals(0);
         expect(respBody).to.have.property("perPage").that.equals(20);
-		expect(respBody).to.have.property("nextPage").that.equals("http://localhost:8080/app/trip?page=1&perPage=20");
+		expect(respBody).to.have.property("nextPage").that.equals("https://campusmeetups.azurewebsites.net/app/test/trip?page=1&perPage=20");
 		expect(respBody).to.have.property("prevPage").that.equals(null);
     });
     
@@ -67,8 +67,8 @@ describe('Test List of expanded Trips result with default pagination', function 
 	var respBody;
 		 
     before(function (done) {
-        chaiCfg.request.execute("http://localhost:8080")
-			.get("/app/trip?expand=true")
+        chaiCfg.request.execute("https://campusmeetups.azurewebsites.net")
+			.get("/app/test/trip?expand=true")
 			.end(function (err, res) {
 				response = res;
 				respBody = res.body;
@@ -82,7 +82,7 @@ describe('Test List of expanded Trips result with default pagination', function 
 		expect(response).to.have.status(200);
 		expect(respBody).to.have.property("page").equals(0);
 		expect(respBody).to.have.property("perPage").equals(20);
-		expect(respBody).to.have.property("nextPage").that.equals("http://localhost:8080/app/trip?page=1&perPage=20&expand=true");
+		expect(respBody).to.have.property("nextPage").that.equals("https://campusmeetups.azurewebsites.net/app/test/trip?page=1&perPage=20&expand=true");
 		expect(respBody).to.have.property("prevPage").that.equals(null);
 	});
 	

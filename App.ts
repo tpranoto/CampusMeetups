@@ -618,6 +618,59 @@ class App {
       }
     );
 
+    ///////TEST ROUTES////////
+    router.post("/app/test/trip", async (req, res) => {
+      var jsonObj = req.body;
+      console.log(`Create new trip with: ${JSON.stringify(req.body)}`);
+      await this.Trip.createTrip(res, jsonObj);
+    });
+
+    router.get("/app/test/trip/:tripId", async (req, res) => {
+      var tripId = req.params.tripId;
+      console.log(`Retrieve trip ${tripId}`);
+      await this.Trip.retrieveTrip(res, tripId);
+    });
+
+    router.get("/app/test/trip", async (req, res) => {
+      try {
+        var path = `${req.protocol}://${req.headers.host}${req.path}`;
+        var query: any = req.query;
+        var name = query.name;
+        var categoryId = query.categoryId;
+        var organizerId = query.organizerId;
+        var perPage =
+          query.perPage !== undefined ? parseInt(query.perPage) : 20;
+        if (isNaN(perPage) || perPage <= 0) {
+          res.status(400).json({ error: "perPage must be a positive integer" });
+          return;
+        }
+        var page = query.page !== undefined ? parseInt(query.page) : 0;
+        if (isNaN(page) || page < 0) {
+          res.status(400).json({ error: "page must be 0 or larger" });
+          return;
+        }
+
+        var expand =
+          query.expand !== undefined
+            ? JSON.parse(query.expand.toLowerCase())
+            : false;
+      } catch (e) {
+        res.status(400).json({ error: "bad query params" });
+        return;
+      }
+      console.log("Query multiple trips");
+      await this.Trip.retrieveAllTrips(
+        res,
+        path,
+        name,
+        organizerId,
+        categoryId,
+        perPage,
+        page,
+        expand
+      );
+    });
+
     this.expressApp.use("/", router);
 
     this.expressApp.use(
