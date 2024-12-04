@@ -78,14 +78,17 @@ class StudentModel {
 
     const id = crypto.randomBytes(16).toString("hex");
     studentObj.studentId = id;
+    const query = this.model.findOneAndUpdate(
+      { ssoId: studentObj.ssoId },
+      {
+        $setOnInsert: studentObj,
+      },
+      { new: true, upsert: true }
+    );
+    query.select("-_id -__v");
+
     try {
-      const user = await this.model.findOneAndUpdate(
-        { ssoId: studentObj.ssoId },
-        {
-          $setOnInsert: studentObj,
-        },
-        { new: true, upsert: true }
-      );
+      const user = await query.exec();
       return user;
     } catch (error) {
       console.error(error);
