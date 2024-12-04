@@ -93,7 +93,15 @@ class App {
         console.log(
           "successfully authenticated user and returned to callback page."
         );
-        res.cookie("user", JSON.stringify(req.user));
+        var userDt: any = req.user;
+        var limitedData = {
+          studentId: userDt.studentId,
+          fname: userDt.fname,
+          lname: userDt.lname,
+          image: userDt.image,
+        };
+
+        res.cookie("user", JSON.stringify(limitedData));
         res.redirect("/");
       }
     );
