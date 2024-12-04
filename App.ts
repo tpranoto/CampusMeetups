@@ -121,7 +121,7 @@ class App {
 
           res.clearCookie("user");
           res.clearCookie("connect.sid");
-          // res.redirect("/");
+          res.clearCookie("profile");
           return res.json({ message: "logout successful" });
         });
       });
@@ -133,6 +133,7 @@ class App {
       } else {
         res.clearCookie("user");
         res.clearCookie("connect.sid");
+        res.clearCookie("profile");
         res.json({ error: "user data not available" });
       }
     });
