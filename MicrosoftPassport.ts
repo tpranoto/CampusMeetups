@@ -24,7 +24,7 @@ class MicrosoftPassport {
         async (accessToken: any, refreshToken: any, profile: any, cb: any) => {
           process.nextTick(async () => {
             var userData = {
-              studentId: profile._json.id,
+              ssoId: profile._json.id,
               fname: profile._json.givenName,
               lname: profile._json.surname,
               email: profile._json.userPrincipalName,

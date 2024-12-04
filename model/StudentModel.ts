@@ -52,6 +52,11 @@ class StudentModel {
           type: Date,
           default: new Date(),
         },
+        ssoId: {
+          type: String,
+          unique: true,
+          default: "",
+        },
       },
       { collection: "Student" }
     );
@@ -70,9 +75,12 @@ class StudentModel {
     if (studentObj == null) {
       return;
     }
+
+    const id = crypto.randomBytes(16).toString("hex");
+    studentObj.studentId = id;
     try {
       const user = await this.model.findOneAndUpdate(
-        { studentId: studentObj.studentId },
+        { ssoId: studentObj.ssoId },
         {
           $setOnInsert: studentObj,
         },

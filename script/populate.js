@@ -51,7 +51,8 @@ StudentsCollection.insertMany([
         "verified": true,
         "status": "Active",
         "joined": getUpcomingDate(-30),
-        "bio": "Hi, I'm Liam! I'm a freshman here at Seattle U, majoring in Computer Science. I love coding, gaming, and exploring new tech. Always up for a good challenge!"
+        "bio": "Hi, I'm Liam! I'm a freshman here at Seattle U, majoring in Computer Science. I love coding, gaming, and exploring new tech. Always up for a good challenge!",
+        "ssoId":""
     },
     {
         "studentId": "c1e4f7b8d0c9a5e1b2f6a8e3d4c5b0f7",
@@ -63,7 +64,8 @@ StudentsCollection.insertMany([
         "verified": true,
         "status": "Active",
         "joined": getUpcomingDate(-48),
-        "bio": "I'm Olivia, a Psychology major. I enjoy learning about human behavior and am passionate about mental health awareness. In my free time, I love reading, hiking, and volunteering."
+        "bio": "I'm Olivia, a Psychology major. I enjoy learning about human behavior and am passionate about mental health awareness. In my free time, I love reading, hiking, and volunteering.",
+        "ssoId":""
     },
     {
         "studentId": "e3a7d1f9c2b5e6d4f8a1b3c0e7c2d9e5",
@@ -75,7 +77,8 @@ StudentsCollection.insertMany([
         "verified": false,
         "status": "Inactive",
         "joined": getUpcomingDate(-92),
-        "bio": "Hey, I’m Noah! I’m passionate about environmental science and sustainability. I'm actively involved in eco-friendly projects and enjoy playing soccer and cooking healthy meals."
+        "bio": "Hey, I’m Noah! I’m passionate about environmental science and sustainability. I'm actively involved in eco-friendly projects and enjoy playing soccer and cooking healthy meals.",
+        "ssoId":""
     },
     {
         "studentId": "4b8c3f1e6d0a5b2c9e7d4f0e1c8b3d7a",
@@ -87,7 +90,8 @@ StudentsCollection.insertMany([
         "verified": true,
         "status": "Active",
         "joined": getUpcomingDate(-43),
-        "bio": "I'm Emma, an Art History major. I have a passion for exploring museums and learning about different cultures. When I'm not studying, I enjoy photography and trying out new recipes."
+        "bio": "I'm Emma, an Art History major. I have a passion for exploring museums and learning about different cultures. When I'm not studying, I enjoy photography and trying out new recipes.",
+        "ssoId":""
     },
     {
         "studentId": "9e1a4c5b2d8f3a7e6c0b1d9f8e4a2c3b",
@@ -99,7 +103,8 @@ StudentsCollection.insertMany([
         "verified": true,
         "status": "Active",
         "joined": getUpcomingDate(-12),
-        "bio": "Hi, I’m Ava! I’m majoring in Biology with a focus on marine life. I love spending time at the beach, and I’m passionate about ocean conservation and scuba diving."
+        "bio": "Hi, I’m Ava! I’m majoring in Biology with a focus on marine life. I love spending time at the beach, and I’m passionate about ocean conservation and scuba diving.",
+        "ssoId":""
     },
     {
         "studentId": "5c2e8d1b4f0e3a6d9b7a5f4c3e2b1a7d",
@@ -111,7 +116,8 @@ StudentsCollection.insertMany([
         "verified": false,
         "status": "Inactive",
         "joined": getUpcomingDate(-62),
-        "bio": "I’m James, a Computer Science major with a focus on Artificial Intelligence. I enjoy coding, problem-solving, and playing strategy games. I also love hiking and photography!"
+        "bio": "I’m James, a Computer Science major with a focus on Artificial Intelligence. I enjoy coding, problem-solving, and playing strategy games. I also love hiking and photography!",
+        "ssoId":""
     },
     {
         "studentId": "f0a3e9b5c2d1a8f6e4b7d0c2a3e9f1b4",
@@ -123,7 +129,8 @@ StudentsCollection.insertMany([
         "verified": true,
         "status": "Active",
         "joined": getUpcomingDate(-18),
-        "bio": "Hello, I’m Sophia! I’m a Psychology major interested in social behavior and mental health research. I love playing piano, reading psychology journals, and spending time with friends."
+        "bio": "Hello, I’m Sophia! I’m a Psychology major interested in social behavior and mental health research. I love playing piano, reading psychology journals, and spending time with friends.",
+        "ssoId":""
     },
     {
         "studentId": "3f7c1a2e4b5d6e9f8a0b3d1c5e4f2b8e",
@@ -135,7 +142,8 @@ StudentsCollection.insertMany([
         "verified": true,
         "status": "Active",
         "joined": getUpcomingDate(-34),
-        "bio": "I’m Jackson, a Business major with a focus on marketing. I'm all about entrepreneurship, and I’m always looking for new ways to innovate. Outside of school, I enjoy playing basketball and running."
+        "bio": "I’m Jackson, a Business major with a focus on marketing. I'm all about entrepreneurship, and I’m always looking for new ways to innovate. Outside of school, I enjoy playing basketball and running.",
+        "ssoId":""
     },
     {
         "studentId": "b4d9e5c1f7a2b3e8c0a6d4f2e1c5b7a8",
@@ -147,7 +155,8 @@ StudentsCollection.insertMany([
         "verified": false,
         "status": "Inactive",
         "joined": getUpcomingDate(-79),
-        "bio": "Hi, I'm Isabella! I’m studying Nursing and am passionate about helping others. I enjoy working in community health and love volunteering. In my free time, I love to cook and listen to music."
+        "bio": "Hi, I'm Isabella! I’m studying Nursing and am passionate about helping others. I enjoy working in community health and love volunteering. In my free time, I love to cook and listen to music.",
+        "ssoId":""
     },
     {
         "studentId": "e6b4c2f8d1e3a5b9f0c7d1a4e6c8b2d7",
@@ -159,7 +168,8 @@ StudentsCollection.insertMany([
         "verified": true,
         "status": "Active",
         "joined": getUpcomingDate(-2),
-        "bio": "I'm Lucas, a Mechanical Engineering major. I enjoy solving complex problems and building things. Outside of school, I love mountain biking and traveling to new places."
+        "bio": "I'm Lucas, a Mechanical Engineering major. I enjoy solving complex problems and building things. Outside of school, I love mountain biking and traveling to new places.",
+        "ssoId":""
     }    
 ]);
 
