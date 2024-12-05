@@ -72,7 +72,7 @@ describe('Test available trip details result with some attendees', function () {
         expect(respBody).to.have.property('status').that.equals("Ongoing");
         expect(respBody).to.have.property('image').that.equals("https://cdn.stocksnap.io/img-thumbs/960w/mountains-peaks_MFDY4VHVS4.jpg");
         expect(respBody).to.have.property('location').that.equals("Joshua Tree National Park, California");
-        expect(respBody).to.have.property('timestamp').that.equals("2024-12-13T19:53:42.844Z");
+        expect(respBody).to.have.property('timestamp').that.equals("2024-12-16T00:16:09.956Z");
         expect(respBody).to.have.property('organizerId').that.equals("5c2e8d1b4f0e3a6d9b7a5f4c3e2b1a7d");
         expect(respBody).to.have.property('categoryId').that.equals("1e3b5d7c8a4f2e6f8b2c9a3d7e1b4f0d");
         expect(respBody.organizerData).to.have.property('fname').that.equals("James");
