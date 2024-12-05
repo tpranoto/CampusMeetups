@@ -507,6 +507,20 @@ class TripModel {
     }
   }
 
+  public async deleteTripTest(response: any, tripId: string) {
+    var query = this.model.deleteOne({
+      tripId: tripId,
+    });
+    try {
+      await query.exec();
+      response.json({ message: "OK" });
+    } catch (e) {
+      console.error(e);
+      var msg = `failed to delete trip ${tripId}`;
+      response.status(500).json({ error: msg });
+    }
+  }
+
   public async retrieveUpcomingActiveTrips(
     response: any,
     path: string,

@@ -77,7 +77,6 @@ class App {
     res.json({ error: "user is not authenticated" });
   }
 
-  // Configure API endpoints.
   private routes(): void {
     let router = express.Router();
 
@@ -638,6 +637,17 @@ class App {
       var tripId = req.params.tripId;
       console.log(`Retrieve trip ${tripId}`);
       await this.Trip.retrieveTrip(res, tripId);
+    });
+
+    router.delete("/app/test/trip/:tripId", async (req, res) => {
+      try {
+        var tripId = req.params.tripId;
+      } catch (e) {
+        res.status(500).json({ error: "error happened" });
+        return;
+      }
+      console.log(`Delete trip ${tripId}`);
+      await this.Trip.deleteTripTest(res, tripId);
     });
 
     router.get("/app/test/trip", async (req, res) => {

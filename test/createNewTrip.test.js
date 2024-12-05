@@ -56,4 +56,14 @@ describe('Test create new trip result with all fields', function () {
 		expect(respBody).to.have.property('organizerId').that.equals("5c2e8d1b4f0e3a6d9b7a5f4c3e2b1a7d");
 		expect(respBody).to.have.property('categoryId').that.equals("c8a7e3f6b2d4e9c6f3b1e2a5f6c9b4d1");
 	});
+
+	after(function (done) {
+		chaiCfg.request.execute("https://campusmeetups.azurewebsites.net")
+			.delete(`/app/test/trip/${respBody.tripId}`)
+			.end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(200);
+				done();
+		});
+    });
 });
